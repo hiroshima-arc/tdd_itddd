@@ -15,14 +15,18 @@ require 'minitest/autorun'
 
 class UserTest < Minitest::Test
   def test_ユーザーが作成される
-    user = User.new('Bob')
+    user = User.new('1', 'Bob')
+
+    assert_equal user.id, '1'
     assert_equal user.name, 'Bob'
   end
 end
 
 class User
-  attr_reader :name
-  def initialize(name)
+  attr_reader :id, :name
+
+  def initialize(id, name)
+    @id = id
     @name = name
   end
 end
