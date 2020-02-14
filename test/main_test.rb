@@ -10,8 +10,9 @@ require 'minitest/autorun'
 # なぜならソーシャルネットワークサービスだから
 #
 # TODOリスト
-# - [ ] IDと名前を持ったユーザーを作成する
-# - [ ] ユーザー名を更新する
+# - [x] IDと名前を持ったユーザーを作成する
+# - [x] ユーザー名を更新する
+# - [ ] ユーザー名の文字数を確認する
 
 class UserTest < Minitest::Test
   def setup
