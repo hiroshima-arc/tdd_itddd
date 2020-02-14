@@ -52,7 +52,7 @@ class UserId
 end
 
 class UserName
-  attr_accessor :value
+  attr_reader :value
 
   def initialize(value)
     raise ArgumentError if value.nil?
@@ -63,7 +63,7 @@ class UserName
 end
 
 class User
-  attr_accessor :id, :name
+  attr_reader :id, :name
 
   def initialize(id, name)
     @id = id
