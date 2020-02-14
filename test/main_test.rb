@@ -16,12 +16,13 @@ require 'minitest/autorun'
 
 class UserTest < Minitest::Test
   def setup
+    id = UserId.new('1')
     username = UserName.new('Bob')
-    @user = User.new('1', username)
+    @user = User.new(id, username)
   end
 
   def test_ユーザーが作成される
-    assert_equal @user.id, '1'
+    assert_equal @user.id.value, '1'
     assert_equal @user.name.value, 'Bob'
   end
 
@@ -37,6 +38,16 @@ class UserTest < Minitest::Test
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserId
+  attr_accessor :value
+
+  def initialize(value)
+    raise ArgumentError if value.nil?
+
+    @value = value
   end
 end
 
