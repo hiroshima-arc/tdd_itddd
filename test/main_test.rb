@@ -29,12 +29,22 @@ class UserTest < Minitest::Test
 
     assert_equal @user.name, 'Alice'
   end
+
+  def test_ユーザー名が３文字以上の場合はエラー
+    e = assert_raises RuntimeError do
+      User.new(1, 'a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
 end
 
 class User
   attr_accessor :id, :name
 
   def initialize(id, name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
     @id = id
     @name = name
   end
