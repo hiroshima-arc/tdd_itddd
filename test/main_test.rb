@@ -20,10 +20,18 @@ class UserTest < Minitest::Test
     assert_equal user.id, '1'
     assert_equal user.name, 'Bob'
   end
+
+  def test_ユーザー名を更新する
+    user = User.new('1', 'Bob')
+
+    user.name = 'Alice'
+
+    assert_equal user.name, 'Alice'
+  end
 end
 
 class User
-  attr_reader :id, :name
+  attr_accessor :id, :name
 
   def initialize(id, name)
     @id = id
