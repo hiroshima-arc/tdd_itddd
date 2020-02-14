@@ -12,7 +12,7 @@ require 'minitest/autorun'
 # TODOリスト
 # - [x] IDと名前を持ったユーザーを作成する
 # - [x] ユーザー名を更新する
-# - [ ] ユーザー名の文字数を確認する
+# - [x] ユーザー名の文字数を確認する
 
 class UserTest < Minitest::Test
   def setup
