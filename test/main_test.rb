@@ -39,6 +39,18 @@ class UserTest < Minitest::Test
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
   end
+
+  def test_ユーザー名を指定しない場合はエラー
+    assert_raises ArgumentError do
+      UserName.new
+    end
+  end
+
+  def test_IDを指定しない場合はエラー
+    assert_raises ArgumentError do
+      UserId.new
+    end
+  end
 end
 
 class UserId
