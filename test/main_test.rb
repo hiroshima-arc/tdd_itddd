@@ -16,13 +16,13 @@ require 'minitest/autorun'
 
 class UserTest < Minitest::Test
   def setup
-    @username = UserName.new('Bob')
-    @user = User.new('1', 'Bob')
+    username = UserName.new('Bob')
+    @user = User.new('1', username)
   end
 
   def test_ユーザーが作成される
     assert_equal @user.id, '1'
-    assert_equal @user.name, 'Bob'
+    assert_equal @user.name.value, 'Bob'
   end
 
   def test_ユーザー名を更新する
@@ -33,7 +33,7 @@ class UserTest < Minitest::Test
 
   def test_ユーザー名が３文字以上の場合はエラー
     e = assert_raises RuntimeError do
-      User.new(1, 'a')
+      UserName.new('a')
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
@@ -55,8 +55,6 @@ class User
   attr_accessor :id, :name
 
   def initialize(id, name)
-    raise 'ユーザー名は3文字以上です。' if name.length < 3
-
     @id = id
     @name = name
   end
