@@ -15,11 +15,3 @@
 ##### 以下のリンクからクラウドIDEを起動する
 
 [![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/k2works/tdd_itddd)
-
-
-##### IDEが起動したら コマンドラインで以下のコマンドを入力します。
-
-```bash
-$ cd dev/ruby
-$ bundle install
-```
