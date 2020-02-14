@@ -14,19 +14,19 @@ require 'minitest/autorun'
 # - [ ] ユーザー名を更新する
 
 class UserTest < Minitest::Test
-  def test_ユーザーが作成される
-    user = User.new('1', 'Bob')
+  def setup
+    @user = User.new('1', 'Bob')
+  end
 
-    assert_equal user.id, '1'
-    assert_equal user.name, 'Bob'
+  def test_ユーザーが作成される
+    assert_equal @user.id, '1'
+    assert_equal @user.name, 'Bob'
   end
 
   def test_ユーザー名を更新する
-    user = User.new('1', 'Bob')
+    @user.name = 'Alice'
 
-    user.name = 'Alice'
-
-    assert_equal user.name, 'Alice'
+    assert_equal @user.name, 'Alice'
   end
 end
 
