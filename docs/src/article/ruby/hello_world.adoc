@@ -1,6 +1,8 @@
 :toc: left
 :toclevels: 5
 :sectnums:
+:stem:
+
 = Hello World
 
 == 仕様
@@ -52,6 +54,21 @@ deactivate B
 A -> User: Done
 deactivate A
 ----
+
+=== 数式
+
+https://asciidoctor.org/docs/user-manual/#activating-stem-support[Using Multiple Stem Interpreters^]
+
+stem:[sqrt(4) = 2]   
+
+Water (stem:[H_2O]) is a critical component.
+
+[stem] 
+++++ 
+sqrt(4) = 2
+++++
+
+latexmath:[C = \alpha + \beta Y^{\gamma} + \epsilon]
 
 == 開発
 

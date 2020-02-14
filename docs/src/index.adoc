@@ -1,6 +1,7 @@
 :toc: left
 :toclevels: 5
 :sectnums:
+:stem:
 
 = テスト駆動開発からはじめるドメイン駆動設計入門
 
