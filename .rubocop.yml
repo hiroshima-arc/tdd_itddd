@@ -6,3 +6,6 @@ AllCops:
       - 'test/**/*_test.rb'
     Exclude:
       - 'docs'
+
+Style/AsciiComments:
+  Enabled: false
