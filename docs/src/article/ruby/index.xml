@@ -1,0 +1,433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?asciidoc-toc maxdepth="5"?>
+<?asciidoc-numbered?>
+<article xmlns="http://docbook.org/ns/docbook" xmlns:xl="http://www.w3.org/1999/xlink" version="5.0" xml:lang="en">
+<info>
+<title>開発ガイド</title>
+<date>2020-02-14</date>
+</info>
+<section xml:id="_エピソード1">
+<title>エピソード1</title>
+
+</section>
+<section xml:id="_hello_world">
+<title>Hello World</title>
+<section xml:id="_仕様">
+<title>仕様</title>
+
+</section>
+<section xml:id="_設計">
+<title>設計</title>
+<section xml:id="_todoリスト">
+<title>TODOリスト</title>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10063; TODO</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; <phrase role="line-through">TODO DONE</phrase></simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_ユースケース図">
+<title>ユースケース図</title>
+<screen>left to right direction
+skinparam packageStyle rectangle
+actor customer
+actor clerk
+rectangle checkout {
+  customer -- (checkout)
+  (checkout) .&gt; (payment) : include
+  (help) .&gt; (checkout) : extends
+  (checkout) -- clerk
+}</screen>
+</section>
+<section xml:id="_クラス図">
+<title>クラス図</title>
+<screen>class Car
+Driver - Car : drives &gt;
+Car *- Wheel : have 4 &gt;
+Car -- Person : &lt; owns</screen>
+</section>
+<section xml:id="_シーケンス図">
+<title>シーケンス図</title>
+<screen>participant User
+User -&gt; A: DoWork
+activate A
+A -&gt; B: &lt;&lt; createRequest &gt;&gt;
+activate B
+B -&gt; C: DoWork
+activate C
+C --&gt; B: WorkDone
+destroy C
+B --&gt; A: RequestCreated
+deactivate B
+A -&gt; User: Done
+deactivate A</screen>
+</section>
+</section>
+<section xml:id="_開発">
+<title>開発</title>
+
+</section>
+<section xml:id="_参照">
+<title>参照</title>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="http://plantuml.com">PlantUML</link></simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_エピソード2">
+<title>エピソード2</title>
+
+</section>
+</section>
+<section xml:id="_fizz_buzz">
+<title>Fizz Buzz</title>
+<section xml:id="_仕様_2">
+<title>仕様</title>
+<section xml:id="_api">
+<title>Api</title>
+<simpara>1 から 100 までの数をプリントするプログラムを書け。</simpara>
+<simpara>ただし 3 の倍数のときは数の代わりに｢Fizz｣と、5 の倍数のときは｢Buzz｣とプリントし、</simpara>
+<simpara>3 と 5 両方の倍数の場合には｢FizzBuzz｣とプリントすること。</simpara>
+<simpara>タイプごとに出力を切り替えることができる。</simpara>
+<simpara>タイプ１は通常、タイプ２は数字のみ、タイプ３は FizzBuzz の場合のみをプリントする。</simpara>
+</section>
+<section xml:id="_クライアント">
+<title>クライアント</title>
+<simpara>1から100までを１件ずつ画面に表示できる。</simpara>
+<simpara>1から100まで表示された内容を表示できる。</simpara>
+</section>
+</section>
+<section xml:id="_設計_2">
+<title>設計</title>
+<section xml:id="_todoリスト_2">
+<title>TODOリスト</title>
+<section xml:id="_api_2">
+<title>Api</title>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; タイプ1の場合</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 1を渡したら文字列"1"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 2を渡したら文字列"2"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 の倍数のときは数の代わりに｢Fizz｣と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3を渡したら文字列"Fizz"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5 の倍数のときは｢Buzz｣と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5を渡したら文字列"Buzz"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 と 5 両方の倍数の場合には｢FizzBuzz｣と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 15を渡したら文字列"FizzBuzz"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; タイプ2の場合</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 1を渡したら文字列"1"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 2を渡したら文字列"2"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 の倍数のときは数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3を渡したら文字列"3"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5 の倍数のときは数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5を渡したら文字列"5"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 と 5 両方の倍数の場合には数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 15を渡したら文字列"15"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; タイプ3の場合</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 1を渡したら文字列"1"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 2を渡したら文字列"2"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 の倍数のときは数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3を渡したら文字列"3"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5 の倍数のときは数を文字列にして返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 5を渡したら文字列"5"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 3 と 5 両方の倍数の場合には｢FizzBuzz｣と返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 15を渡したら文字列"FizzBuzz"を返す</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; それ以外のタイプの場合</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 例外を返す</simpara>
+</listitem>
+</itemizedlist>
+</section>
+<section xml:id="_クライアント_2">
+<title>クライアント</title>
+<itemizedlist mark="none">
+<listitem>
+<simpara>&#10003; カウンター画面</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 画面イメージを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; APIサービスを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; APIサービスと連携するクライアントサービスを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 正常系を実装する</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; UIを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; UIとクライアントサービスを連携する</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 一覧表示画面</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 画面イメージを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; APIサービスを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; APIサービスと連携するクライアントサービスを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; 正常系を実装する</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; UIを作る</simpara>
+</listitem>
+<listitem>
+<simpara>&#10003; UIとクライアントサービスを連携する</simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+<section xml:id="_ユースケース図_2">
+<title>ユースケース図</title>
+
+</section>
+<section xml:id="_クラス図_2">
+<title>クラス図</title>
+<screen>package Application {
+  package Service {
+    class FizzBuzzService {
+      String generate()
+      String generate_list()
+    }
+    interface FizzBuzzCommand {
+      execute()
+    }
+
+    class FizzBuzzValueCommand {
+      FizzBuzzType type
+      FizzBuzzValue execute()
+    }
+
+    class FizzBuzzListCommand {
+      FizzBuzzType type
+      FizzBuzzList execute()
+    }
+  }
+}
+
+package Domain {
+    package Model {
+      class FizzBuzzValue {
+        Integer number
+        String value
+        boolean eql()
+      }
+
+      class FizzBuzzList {
+        MAX_COUNT = 100
+        ArrayList list
+        FizzBuzzList add()
+      }
+    }
+
+    package Type {
+      class FizzBuzzType {
+        TYPE_01 = 1
+        TYPE_02 = 2
+        TYPE_03 = 3
+        FizzBuzzType {static} create()
+        Boolean is_fizz()
+        Boolean is_buzz()
+        String generate()
+      }
+
+      class FizzBuzzType01 {
+        String generate()
+      }
+
+      class FizzBuzzType02 {
+        String generate()
+      }
+
+      class FizzBuzzType03 {
+        String generate()
+      }
+    }
+}
+
+package Presentation {
+  class FizzBuzzApiService {
+    apiUrl
+    generate()
+    generateList()
+  }
+
+  class FizzBuzzView {
+    _service
+    _counterComponent
+    _tableComponent
+    render()
+  }
+
+  class FizzBuzzCounterComponent {
+    _service
+    _conter
+    _value
+    incrementEvent()
+    decrementEvent()
+    render()
+  }
+
+  class FizzBuzzTableComponent {
+    _service
+    _list
+    _type
+    changeEvent()
+    render()
+  }
+}
+
+FizzBuzzService -&gt; FizzBuzzCommand
+FizzBuzzCommand &lt;|-- FizzBuzzValueCommand
+FizzBuzzCommand &lt;|-- FizzBuzzListCommand
+FizzBuzzCommand *- FizzBuzzType
+FizzBuzzType &lt;|-- FizzBuzzType01
+FizzBuzzType &lt;|-- FizzBuzzType02
+FizzBuzzType &lt;|-- FizzBuzzType03
+FizzBuzzType -&gt; FizzBuzzValue
+FizzBuzzListCommand --&gt; FizzBuzzList
+FizzBuzzService &lt;--- FizzBuzzApiService
+FizzBuzzApiService --* FizzBuzzView
+FizzBuzzView *- FizzBuzzCounterComponent
+FizzBuzzTableComponent -* FizzBuzzView</screen>
+</section>
+<section xml:id="_シーケンス図_2">
+<title>シーケンス図</title>
+
+</section>
+</section>
+<section xml:id="_開発_2">
+<title>開発</title>
+<section xml:id="_application">
+<title>Application</title>
+<section xml:id="_service">
+<title>Service</title>
+<programlisting language="ruby" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../api/index.rb[]</programlisting>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/generate.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/generate_list.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_service.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_command.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_list_command.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_value_command.rb[]</screen>
+</section>
+</section>
+<section xml:id="_domain">
+<title>Domain</title>
+<section xml:id="_modle">
+<title>Modle</title>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/model/fizz_buzz_list.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/model/fizz_buzz_value.rb[]</screen>
+</section>
+<section xml:id="_type">
+<title>Type</title>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type_01.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type_02.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type_03.rb[]</screen>
+</section>
+</section>
+<section xml:id="_presentation">
+<title>Presentation</title>
+<programlisting language="javascript" linenumbering="unnumbered">Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzApiService.js[]</programlisting>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzView.js[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzCounterComponent.js[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzTableComponent.js[]</screen>
+</section>
+<section xml:id="_test">
+<title>Test</title>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/test/fizz_buzz/fizz_buzz_list_command_test.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/test/fizz_buzz/fizz_buzz_value_command_test.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../api/test/fizz_buzz/fizz_buzz_service_test.rb[]</screen>
+<screen>Unresolved directive in fizz_buzz.adoc - include::../../../test/FizzBuzzApiService.test.js[]</screen>
+</section>
+</section>
+<section xml:id="_参照_2">
+<title>参照</title>
+<itemizedlist>
+<listitem>
+<simpara><link xl:href="http://asciidoctor.org/">Asciidoctor</link></simpara>
+</listitem>
+<listitem>
+<simpara><link xl:href="http://www.plantuml.com">PlantUML</link></simpara>
+</listitem>
+</itemizedlist>
+</section>
+</section>
+</article>
