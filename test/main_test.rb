@@ -17,8 +17,8 @@ require 'minitest/autorun'
 class UserTest < Minitest::Test
   def setup
     id = UserId.new('1')
-    username = UserName.new('Bob')
-    @user = User.new(id, username)
+    name = UserName.new('Bob')
+    @user = User.new(user_id: id, user_name: name)
   end
 
   def test_ユーザーが作成される
@@ -27,7 +27,7 @@ class UserTest < Minitest::Test
   end
 
   def test_ユーザー名を更新する
-    @user.change_name(UserName.new('Alice'))
+    @user.change_name(user_name: UserName.new('Alice'))
 
     assert_equal @user.name.value, 'Alice'
   end
@@ -77,14 +77,14 @@ end
 class User
   attr_reader :id, :name
 
-  def initialize(id, name)
-    @id = id
-    @name = name
+  def initialize(user_id:, user_name:)
+    @id = user_id
+    @name = user_name
   end
 
-  def change_name(name)
+  def change_name(user_name:)
     raise ArgumentError if name.nil?
 
-    @name = name
+    @name = user_name
   end
 end
