@@ -16,6 +16,7 @@ require 'minitest/autorun'
 
 class UserTest < Minitest::Test
   def setup
+    @username = UserName.new('Bob')
     @user = User.new('1', 'Bob')
   end
 
@@ -36,6 +37,17 @@ class UserTest < Minitest::Test
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserName
+  attr_accessor :value
+
+  def initialize(value)
+    raise ArgumentError if value.nil?
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
   end
 end
 
