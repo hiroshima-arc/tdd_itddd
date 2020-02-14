@@ -27,9 +27,9 @@ class UserTest < Minitest::Test
   end
 
   def test_ユーザー名を更新する
-    @user.name = 'Alice'
+    @user.change_name(UserName.new('Alice'))
 
-    assert_equal @user.name, 'Alice'
+    assert_equal @user.name.value, 'Alice'
   end
 
   def test_ユーザー名が３文字以上の場合はエラー
@@ -67,6 +67,12 @@ class User
 
   def initialize(id, name)
     @id = id
+    @name = name
+  end
+
+  def change_name(name)
+    raise ArgumentError if name.nil?
+
     @name = name
   end
 end
