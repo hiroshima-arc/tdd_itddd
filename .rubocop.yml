@@ -9,3 +9,11 @@ AllCops:
 
 Style/AsciiComments:
   Enabled: false
+
+Naming/MethodName:
+  Exclude:
+    - 'test/**'
+
+Naming/AsciiIdentifiers:
+  Exclude:
+    - 'test/**'
