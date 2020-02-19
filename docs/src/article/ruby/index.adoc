@@ -1326,6 +1326,42 @@ User *-r UserName
        |
         -- user_test.rb
 
+./main.rb
+[source, ruby]
+----
+include::./code/value_object/main.rb[]
+----
+
+./lib/sns.rb
+[source, ruby]
+----
+include::./code/value_object/lib/sns.rb[]
+----
+
+./lib/user_id.rb
+[source, ruby]
+----
+include::./code/value_object/lib/user_id.rb[]
+----
+
+./lib/user_name.rb
+[source, ruby]
+----
+include::./code/value_object/lib/user_name.rb[]
+----
+
+./lib/user.rb
+[source, ruby]
+----
+include::./code/value_object/lib/user.rb[]
+----
+
+./test/user_test.rb
+[source, ruby]
+----
+include::./code/value_object/test/user_test.rb[]
+----
+
 == エンティティ
 
 == ドメインサービス

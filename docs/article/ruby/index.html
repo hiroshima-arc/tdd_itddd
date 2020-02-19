@@ -2084,6 +2084,155 @@ Finished in 0.00364s
        -- user_test.rb</pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">/main.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby">require <span class="string"><span class="delimiter">'</span><span class="content">./test/user_test.rb</span><span class="delimiter">'</span></span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">/lib/sns.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
+
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user.rb</span><span class="delimiter">'</span></span>
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user_id.rb</span><span class="delimiter">'</span></span>
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user_name.rb</span><span class="delimiter">'</span></span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">/lib/user_id.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
+
+<span class="comment"># UserID Value Object</span>
+<span class="keyword">class</span> <span class="class">UserId</span>
+  attr_reader <span class="symbol">:value</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>(value)
+    raise <span class="keyword">if</span> value.nil?
+
+    <span class="instance-variable">@value</span> = value
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">/lib/user_name.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
+
+<span class="comment"># User Name Value Object</span>
+<span class="keyword">class</span> <span class="class">UserName</span>
+  attr_reader <span class="symbol">:value</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>(value)
+    raise <span class="keyword">if</span> value.nil?
+    raise <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span> <span class="keyword">if</span> value.length &lt; <span class="integer">3</span>
+
+    <span class="instance-variable">@value</span> = value
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">/lib/user.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
+
+<span class="comment"># User Value Object</span>
+<span class="keyword">class</span> <span class="class">User</span>
+  attr_reader <span class="symbol">:id</span>, <span class="symbol">:name</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>(<span class="key">user_id</span>:, <span class="key">user_name</span>:)
+    <span class="instance-variable">@id</span> = user_id
+    <span class="instance-variable">@name</span> = user_name
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="function">change_name</span>(name)
+    <span class="instance-variable">@name</span> = <span class="constant">UserName</span>.new(name)
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">/test/user_test.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
+
+require <span class="string"><span class="delimiter">'</span><span class="content">minitest/reporters</span><span class="delimiter">'</span></span>
+<span class="constant">Minitest</span>::<span class="constant">Reporters</span>.use! [<span class="constant">Minitest</span>::<span class="constant">Reporters</span>::<span class="constant">SpecReporter</span>.new(<span class="key">color</span>: <span class="predefined-constant">true</span>)]
+require <span class="string"><span class="delimiter">'</span><span class="content">minitest/autorun</span><span class="delimiter">'</span></span>
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/sns.rb</span><span class="delimiter">'</span></span>
+
+<span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
+  describe <span class="string"><span class="delimiter">'</span><span class="content">ユーザーを登録する</span><span class="delimiter">'</span></span> <span class="keyword">do</span>
+    <span class="keyword">def</span> <span class="function">setup</span>
+      id = <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>)
+      name = <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
+      <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(<span class="key">user_id</span>: id, <span class="key">user_name</span>: name)
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.id.value
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満で新規登録する場合はエラー</span>
+      e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="keyword">end</span>
+
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
+      user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名を指定しない場合はエラー</span>
+      assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="constant">UserName</span>.new(<span class="predefined-constant">nil</span>)
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_IDを指定しない場合はエラー</span>
+      assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="constant">UserId</span>.new(<span class="predefined-constant">nil</span>)
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  describe <span class="string"><span class="delimiter">'</span><span class="content">ユーザーを更新する</span><span class="delimiter">'</span></span> <span class="keyword">do</span>
+    <span class="keyword">def</span> <span class="function">setup</span>
+      id = <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>)
+      name = <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
+      <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(<span class="key">user_id</span>: id, <span class="key">user_name</span>: name)
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザーの名前を更新する</span>
+      <span class="instance-variable">@user</span>.change_name(<span class="string"><span class="delimiter">'</span><span class="content">Alic</span><span class="delimiter">'</span></span>)
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Alic</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満で更新する場合はエラー</span>
+      e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="instance-variable">@user</span>.change_name(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="keyword">end</span>
+
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で更新する場合は登録される</span>
+      user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abc</span><span class="delimiter">'</span></span>))
+      user.change_name(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>)
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2162,7 +2311,7 @@ Finished in 0.00364s
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-19 16:12:52 JST
+Last updated 2020-02-19 16:23:00 JST
 </div>
 </div>
 </body>
