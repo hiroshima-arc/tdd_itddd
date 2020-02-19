@@ -534,7 +534,7 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_仮実装から実装へ">2.4. 仮実装から実装へ</a>
 <ul class="sectlevel3">
-<li><a href="#_ユーザーを登録_更新する">2.4.1. ユーザーを登録・更新する</a></li>
+<li><a href="#_ユーザーを更新する">2.4.1. ユーザーを更新する</a></li>
 </ul>
 </li>
 <li><a href="#_リファクタリング">2.5. リファクタリング</a>
@@ -545,7 +545,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_明白な実装">2.6. 明白な実装</a>
 <ul class="sectlevel3">
 <li><a href="#_ユーザーを登録する_2">2.6.1. ユーザーを登録する</a></li>
-<li><a href="#_ユーザーを更新する">2.6.2. ユーザーを更新する</a></li>
+<li><a href="#_ユーザーを更新する_2">2.6.2. ユーザーを更新する</a></li>
 </ul>
 </li>
 <li><a href="#_リファクタリング_2">2.7. リファクタリング</a>
@@ -679,6 +679,64 @@ table.CodeRay td.code>pre{padding:0}
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
   <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
+    user = <span class="constant">User</span>.new
+    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, user.id
+    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, user.name
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
+Started with run options --seed 44125
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                        ERROR (0.00s)
+Minitest::UnexpectedError:         NameError: uninitialized constant UserTest::User
+            test/hello_test.rb:7:in test_IDと名前を持ったユーザーを作成する
+
+
+Finished in 0.00135s
+1 tests, 0 assertions, 0 failures, 1 errors, 0 skips</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
+  <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
+    user = <span class="constant">User</span>.new
+    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, user.id
+    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, user.name
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="class">User</span>
+  attr_accessor <span class="symbol">:id</span>, <span class="symbol">:name</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>
+    <span class="instance-variable">@id</span> = <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>
+    <span class="instance-variable">@name</span> = <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
+Started with run options --seed 55832
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+
+Finished in 0.00072s
+1 tests, 2 assertions, 0 failures, 0 errors, 0 skips</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
+  <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
     user = <span class="constant">User</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, user.id
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, user.name
@@ -707,12 +765,18 @@ Finished in 0.00089s
 1 tests, 2 assertions, 0 failures, 0 errors, 0 skips</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ git add .
+$ git commit -m 'test: ユーザーを登録する'</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_仮実装から実装へ">2.4. 仮実装から実装へ</h3>
 <div class="sect3">
-<h4 id="_ユーザーを登録_更新する">2.4.1. ユーザーを登録・更新する</h4>
+<h4 id="_ユーザーを更新する">2.4.1. ユーザーを更新する</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -881,7 +945,7 @@ Finished in 0.00114s
 
   <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
     e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">User</span>.new(<span class="integer">1</span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="constant">User</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
     <span class="keyword">end</span>
 
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
@@ -902,7 +966,7 @@ Finished in 0.00114s
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ユーザーを更新する">2.6.2. ユーザーを更新する</h4>
+<h4 id="_ユーザーを更新する_2">2.6.2. ユーザーを更新する</h4>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -959,7 +1023,7 @@ Finished in 0.00114s
 
   <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
     e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">User</span>.new(<span class="integer">1</span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="constant">User</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
     <span class="keyword">end</span>
 
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
@@ -997,7 +1061,7 @@ Finished in 0.00114s
 
   <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
     e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">User</span>.new(<span class="integer">1</span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="constant">User</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
     <span class="keyword">end</span>
 
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
@@ -1049,7 +1113,7 @@ Finished in 0.00114s
 
   <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満で新規登録する場合はエラー</span>
     e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">User</span>.new(<span class="integer">1</span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="constant">User</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
     <span class="keyword">end</span>
 
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message

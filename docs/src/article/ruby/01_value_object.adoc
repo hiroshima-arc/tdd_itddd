@@ -45,6 +45,65 @@ end
 ----
 class UserTest < Minitest::Test
   def test_IDと名前を持ったユーザーを作成する
+    user = User.new
+    assert_equal '1', user.id
+    assert_equal 'Bob', user.name
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb
+Started with run options --seed 44125
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                        ERROR (0.00s)
+Minitest::UnexpectedError:         NameError: uninitialized constant UserTest::User
+            test/hello_test.rb:7:in test_IDと名前を持ったユーザーを作成する
+
+
+Finished in 0.00135s
+1 tests, 0 assertions, 0 failures, 1 errors, 0 skips
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def test_IDと名前を持ったユーザーを作成する
+    user = User.new
+    assert_equal '1', user.id
+    assert_equal 'Bob', user.name
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize
+    @id = '1'
+    @name = 'Bob'
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb
+Started with run options --seed 55832
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+
+Finished in 0.00072s
+1 tests, 2 assertions, 0 failures, 0 errors, 0 skips
+----
+
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def test_IDと名前を持ったユーザーを作成する
     user = User.new('1', 'Bob')
     assert_equal '1', user.id
     assert_equal 'Bob', user.name
@@ -73,9 +132,15 @@ Finished in 0.00089s
 1 tests, 2 assertions, 0 failures, 0 errors, 0 skips
 ----
 
+[source, bash]
+----
+$ git add .
+$ git commit -m 'test: ユーザーを登録する'
+----
+
 === 仮実装から実装へ
 
-==== ユーザーを登録・更新する
+==== ユーザーを更新する
 
 [source, ruby]
 ----
@@ -214,7 +279,7 @@ class UserTest < Minitest::Test
 
   def test_ユーザー名が３文字未満の場合はエラー
     e = assert_raises RuntimeError do
-      User.new(1, 'a')
+      User.new('1', 'a')
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
@@ -262,7 +327,7 @@ class UserTest < Minitest::Test
 
   def test_ユーザー名が３文字未満の場合はエラー
     e = assert_raises RuntimeError do
-      User.new(1, 'a')
+      User.new('1', 'a')
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
@@ -300,7 +365,7 @@ class UserTest < Minitest::Test
 
   def test_ユーザー名が３文字未満の場合はエラー
     e = assert_raises RuntimeError do
-      User.new(1, 'a')
+      User.new('1', 'a')
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
@@ -352,7 +417,7 @@ class UserTest < Minitest::Test
 
   def test_ユーザー名が３文字未満で新規登録する場合はエラー
     e = assert_raises RuntimeError do
-      User.new(1, 'a')
+      User.new('1', 'a')
     end
 
     assert_equal 'ユーザー名は3文字以上です。', e.message
