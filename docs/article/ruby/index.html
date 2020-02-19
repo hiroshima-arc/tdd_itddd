@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>開発ガイド</title>
+<title>テスト駆動開発からはじめるドメイン駆動設計入門</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -427,548 +427,110 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>開発ガイド</h1>
+<h1>テスト駆動開発からはじめるドメイン駆動設計入門</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_エピソード1">1. エピソード1</a></li>
-<li><a href="#_hello_world">Hello World</a>
-<ul class="sectlevel1">
-<li><a href="#_仕様">1. 仕様</a></li>
-<li><a href="#_設計">2. 設計</a>
-<ul class="sectlevel2">
-<li><a href="#_todoリスト">2.1. TODOリスト</a></li>
-<li><a href="#_ユースケース図">2.2. ユースケース図</a></li>
-<li><a href="#_クラス図">2.3. クラス図</a></li>
-<li><a href="#_シーケンス図">2.4. シーケンス図</a></li>
-<li><a href="#_数式">2.5. 数式</a></li>
-</ul>
-</li>
-<li><a href="#_開発">3. 開発</a></li>
-<li><a href="#_参照">4. 参照</a></li>
-<li><a href="#_エピソード2">5. エピソード2</a></li>
-</ul>
-</li>
-<li><a href="#_fizz_buzz">Fizz Buzz</a>
-<ul class="sectlevel1">
-<li><a href="#_仕様_2">1. 仕様</a>
-<ul class="sectlevel2">
-<li><a href="#_api">1.1. Api</a></li>
-<li><a href="#_クライアント">1.2. クライアント</a></li>
-</ul>
-</li>
-<li><a href="#_設計_2">2. 設計</a>
-<ul class="sectlevel2">
-<li><a href="#_todoリスト_2">2.1. TODOリスト</a>
-<ul class="sectlevel3">
-<li><a href="#_api_2">2.1.1. Api</a></li>
-<li><a href="#_クライアント_2">2.1.2. クライアント</a></li>
-</ul>
-</li>
-<li><a href="#_ユースケース図_2">2.2. ユースケース図</a></li>
-<li><a href="#_クラス図_2">2.3. クラス図</a></li>
-<li><a href="#_シーケンス図_2">2.4. シーケンス図</a></li>
-</ul>
-</li>
-<li><a href="#_開発_2">3. 開発</a>
-<ul class="sectlevel2">
-<li><a href="#_application">3.1. Application</a>
-<ul class="sectlevel3">
-<li><a href="#_service">3.1.1. Service</a></li>
-</ul>
-</li>
-<li><a href="#_domain">3.2. Domain</a>
-<ul class="sectlevel3">
-<li><a href="#_modle">3.2.1. Modle</a></li>
-<li><a href="#_type">3.2.2. Type</a></li>
-</ul>
-</li>
-<li><a href="#_presentation">3.3. Presentation</a></li>
-<li><a href="#_test">3.4. Test</a></li>
-</ul>
-</li>
-<li><a href="#_参照_2">4. 参照</a></li>
-</ul>
-</li>
+<li><a href="#_値オブジェクト">1. 値オブジェクト</a></li>
+<li><a href="#_エンティティ">2. エンティティ</a></li>
+<li><a href="#_ドメインサービス">3. ドメインサービス</a></li>
+<li><a href="#_リポジトリ">4. リポジトリ</a></li>
+<li><a href="#_アプリケーションサービス">5. アプリケーションサービス</a></li>
+<li><a href="#_依存関係のコントロール">6. 依存関係のコントロール</a></li>
+<li><a href="#_ソフトウェアシステムを組み立てる">7. ソフトウェアシステムを組み立てる</a></li>
+<li><a href="#_ファクトリ">8. ファクトリ</a></li>
+<li><a href="#_データの整合性">9. データの整合性</a></li>
+<li><a href="#_アプリケーションを1から組み立てる">10. アプリケーションを1から組み立てる</a></li>
+<li><a href="#_集約">11. 集約</a></li>
+<li><a href="#_仕様">12. 仕様</a></li>
+<li><a href="#_アーキテクチャ">13. アーキテクチャ</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="_エピソード1">1. エピソード1</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<h1 id="_hello_world" class="sect0">Hello World</h1>
-<div class="sect1">
-<h2 id="_仕様">1. 仕様</h2>
+<h2 id="_値オブジェクト">1. 値オブジェクト</h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_設計">2. 設計</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_todoリスト">2.1. TODOリスト</h3>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10063; TODO</p>
-</li>
-<li>
-<p>&#10003; <span class="line-through">TODO DONE</span></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_ユースケース図">2.2. ユースケース図</h3>
-<div class="imageblock">
-<div class="content">
-<img src="diag-0cedeb4ec34c9f83ec0b9d9a01738a0a.png" alt="diag 0cedeb4ec34c9f83ec0b9d9a01738a0a" width="330" height="253">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_クラス図">2.3. クラス図</h3>
-<div class="imageblock">
-<div class="content">
-<img src="diag-52188ed3e6021890c7143b0584c16e9c.png" alt="diag 52188ed3e6021890c7143b0584c16e9c" width="379" height="191">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_シーケンス図">2.4. シーケンス図</h3>
-<div class="imageblock">
-<div class="content">
-<img src="diag-c9982f70efc55384b0a833d5587c23b4.png" alt="diag c9982f70efc55384b0a833d5587c23b4" width="390" height="273">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_数式">2.5. 数式</h3>
-<div class="paragraph">
-<p><a href="https://asciidoctor.org/docs/user-manual/#activating-stem-support" target="_blank" rel="noopener">Using Multiple Stem Interpreters</a></p>
-</div>
-<div class="paragraph">
-<p>\$sqrt(4) = 2\$</p>
-</div>
-<div class="paragraph">
-<p>Water (\$H_2O\$) is a critical component.</p>
-</div>
-<div class="stemblock">
-<div class="content">
-\$sqrt(4) = 2\$
-</div>
-</div>
-<div class="paragraph">
-<p>\(C = \alpha + \beta Y^{\gamma} + \epsilon\)</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_開発">3. 開発</h2>
+<h2 id="_エンティティ">2. エンティティ</h2>
 <div class="sectionbody">
 
 </div>
 </div>
 <div class="sect1">
-<h2 id="_参照">4. 参照</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://plantuml.com">PlantUML</a></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_エピソード2">5. エピソード2</h2>
+<h2 id="_ドメインサービス">3. ドメインサービス</h2>
 <div class="sectionbody">
 
 </div>
 </div>
-<h1 id="_fizz_buzz" class="sect0">Fizz Buzz</h1>
 <div class="sect1">
-<h2 id="_仕様_2">1. 仕様</h2>
+<h2 id="_リポジトリ">4. リポジトリ</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_api">1.1. Api</h3>
-<div class="paragraph">
-<p>1 から 100 までの数をプリントするプログラムを書け。</p>
-</div>
-<div class="paragraph">
-<p>ただし 3 の倍数のときは数の代わりに｢Fizz｣と、5 の倍数のときは｢Buzz｣とプリントし、</p>
-</div>
-<div class="paragraph">
-<p>3 と 5 両方の倍数の場合には｢FizzBuzz｣とプリントすること。</p>
-</div>
-<div class="paragraph">
-<p>タイプごとに出力を切り替えることができる。</p>
-</div>
-<div class="paragraph">
-<p>タイプ１は通常、タイプ２は数字のみ、タイプ３は FizzBuzz の場合のみをプリントする。</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_クライアント">1.2. クライアント</h3>
-<div class="paragraph">
-<p>1から100までを１件ずつ画面に表示できる。</p>
-</div>
-<div class="paragraph">
-<p>1から100まで表示された内容を表示できる。</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_設計_2">2. 設計</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_todoリスト_2">2.1. TODOリスト</h3>
-<div class="sect3">
-<h4 id="_api_2">2.1.1. Api</h4>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10003; タイプ1の場合</p>
-</li>
-<li>
-<p>&#10003; 数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 1を渡したら文字列"1"を返す</p>
-</li>
-<li>
-<p>&#10003; 2を渡したら文字列"2"を返す</p>
-</li>
-<li>
-<p>&#10003; 3 の倍数のときは数の代わりに｢Fizz｣と返す</p>
-</li>
-<li>
-<p>&#10003; 3を渡したら文字列"Fizz"を返す</p>
-</li>
-<li>
-<p>&#10003; 5 の倍数のときは｢Buzz｣と返す</p>
-</li>
-<li>
-<p>&#10003; 5を渡したら文字列"Buzz"を返す</p>
-</li>
-<li>
-<p>&#10003; 3 と 5 両方の倍数の場合には｢FizzBuzz｣と返す</p>
-</li>
-<li>
-<p>&#10003; 15を渡したら文字列"FizzBuzz"を返す</p>
-</li>
-<li>
-<p>&#10003; タイプ2の場合</p>
-</li>
-<li>
-<p>&#10003; 数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 1を渡したら文字列"1"を返す</p>
-</li>
-<li>
-<p>&#10003; 2を渡したら文字列"2"を返す</p>
-</li>
-<li>
-<p>&#10003; 3 の倍数のときは数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 3を渡したら文字列"3"を返す</p>
-</li>
-<li>
-<p>&#10003; 5 の倍数のときは数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 5を渡したら文字列"5"を返す</p>
-</li>
-<li>
-<p>&#10003; 3 と 5 両方の倍数の場合には数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 15を渡したら文字列"15"を返す</p>
-</li>
-<li>
-<p>&#10003; タイプ3の場合</p>
-</li>
-<li>
-<p>&#10003; 数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 1を渡したら文字列"1"を返す</p>
-</li>
-<li>
-<p>&#10003; 2を渡したら文字列"2"を返す</p>
-</li>
-<li>
-<p>&#10003; 3 の倍数のときは数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 3を渡したら文字列"3"を返す</p>
-</li>
-<li>
-<p>&#10003; 5 の倍数のときは数を文字列にして返す</p>
-</li>
-<li>
-<p>&#10003; 5を渡したら文字列"5"を返す</p>
-</li>
-<li>
-<p>&#10003; 3 と 5 両方の倍数の場合には｢FizzBuzz｣と返す</p>
-</li>
-<li>
-<p>&#10003; 15を渡したら文字列"FizzBuzz"を返す</p>
-</li>
-<li>
-<p>&#10003; それ以外のタイプの場合</p>
-</li>
-<li>
-<p>&#10003; 例外を返す</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_クライアント_2">2.1.2. クライアント</h4>
-<div class="ulist checklist">
-<ul class="checklist">
-<li>
-<p>&#10003; カウンター画面</p>
-</li>
-<li>
-<p>&#10003; 画面イメージを作る</p>
-</li>
-<li>
-<p>&#10003; APIサービスを作る</p>
-</li>
-<li>
-<p>&#10003; APIサービスと連携するクライアントサービスを作る</p>
-</li>
-<li>
-<p>&#10003; 正常系を実装する</p>
-</li>
-<li>
-<p>&#10003; UIを作る</p>
-</li>
-<li>
-<p>&#10003; UIとクライアントサービスを連携する</p>
-</li>
-<li>
-<p>&#10003; 一覧表示画面</p>
-</li>
-<li>
-<p>&#10003; 画面イメージを作る</p>
-</li>
-<li>
-<p>&#10003; APIサービスを作る</p>
-</li>
-<li>
-<p>&#10003; APIサービスと連携するクライアントサービスを作る</p>
-</li>
-<li>
-<p>&#10003; 正常系を実装する</p>
-</li>
-<li>
-<p>&#10003; UIを作る</p>
-</li>
-<li>
-<p>&#10003; UIとクライアントサービスを連携する</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_ユースケース図_2">2.2. ユースケース図</h3>
-
-</div>
-<div class="sect2">
-<h3 id="_クラス図_2">2.3. クラス図</h3>
-<div class="imageblock">
-<div class="content">
-<img src="diag-e55b473997e9b568992b242402d6ebee.png" alt="diag e55b473997e9b568992b242402d6ebee" width="1439" height="700">
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_シーケンス図_2">2.4. シーケンス図</h3>
 
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="_開発_2">3. 開発</h2>
+<h2 id="_アプリケーションサービス">5. アプリケーションサービス</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_application">3.1. Application</h3>
-<div class="sect3">
-<h4 id="_service">3.1.1. Service</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">Unresolved directive in fizz_buzz.adoc - include::../../../api/index.rb[]</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/generate.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/generate_list.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_service.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_command.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_list_command.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/application/service/fizz_buzz_value_command.rb[]</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_domain">3.2. Domain</h3>
-<div class="sect3">
-<h4 id="_modle">3.2.1. Modle</h4>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/model/fizz_buzz_list.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/model/fizz_buzz_value.rb[]</pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_type">3.2.2. Type</h4>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type_01.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type_02.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/fizz_buzz/domain/type/fizz_buzz_type_03.rb[]</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_presentation">3.3. Presentation</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="highlight"><code class="language-javascript" data-lang="javascript">Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzApiService.js[]</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzView.js[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzCounterComponent.js[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../src/presentation/FizzBuzzTableComponent.js[]</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_test">3.4. Test</h3>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/test/fizz_buzz/fizz_buzz_list_command_test.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/test/fizz_buzz/fizz_buzz_value_command_test.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../api/test/fizz_buzz/fizz_buzz_service_test.rb[]</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>Unresolved directive in fizz_buzz.adoc - include::../../../test/FizzBuzzApiService.test.js[]</pre>
-</div>
-</div>
-</div>
+
 </div>
 </div>
 <div class="sect1">
-<h2 id="_参照_2">4. 参照</h2>
+<h2 id="_依存関係のコントロール">6. 依存関係のコントロール</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="http://asciidoctor.org/" target="_blank" rel="noopener">Asciidoctor</a></p>
-</li>
-<li>
-<p><a href="http://www.plantuml.com" target="_blank" rel="noopener">PlantUML</a></p>
-</li>
-</ul>
+
 </div>
+</div>
+<div class="sect1">
+<h2 id="_ソフトウェアシステムを組み立てる">7. ソフトウェアシステムを組み立てる</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ファクトリ">8. ファクトリ</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_データの整合性">9. データの整合性</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_アプリケーションを1から組み立てる">10. アプリケーションを1から組み立てる</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_集約">11. 集約</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_仕様">12. 仕様</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_アーキテクチャ">13. アーキテクチャ</h2>
+<div class="sectionbody">
+
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-14 11:00:49 JST
+Last updated 2020-02-19 11:44:41 JST
 </div>
 </div>
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-  messageStyle: "none",
-  tex2jax: {
-    inlineMath: [["\\(", "\\)"]],
-    displayMath: [["\\[", "\\]"]],
-    ignoreClass: "nostem|nolatexmath"
-  },
-  asciimath2jax: {
-    delimiters: [["\\$", "\\$"]],
-    ignoreClass: "nostem|noasciimath"
-  },
-  TeX: { equationNumbers: { autoNumber: "none" } }
-});
-</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.6.0/MathJax.js?config=TeX-MML-AM_HTMLorMML"></script>
 </body>
 </html>
