@@ -2,7 +2,7 @@
 :toclevels: 5
 :sectnums:
 :source-highlighter: coderay
-hhhhhhkhhk
+
 === ユーザーストーリー
 
 [quote, Martin Fowler's Bliki (ja), 'https://bliki-ja.github.io/UserStory']
@@ -25,6 +25,8 @@ ____
 *** [ ] ユーザーの名前を更新する
 
 === 仮実装
+
+==== ユーザーを登録する
 
 [source, ruby]
 ----
@@ -71,9 +73,9 @@ Finished in 0.00089s
 1 tests, 2 assertions, 0 failures, 0 errors, 0 skips
 ----
 
-=== 三角測量
-
 === 仮実装から実装へ
+
+==== ユーザーを登録・更新する
 
 [source, ruby]
 ----
@@ -116,6 +118,8 @@ Finished in 0.00114s
 
 === リファクタリング
 
+==== メソッドの抽出
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -152,7 +156,9 @@ class UserTest < Minitest::Test
 end
 ----
 
-=== TODO追加
+=== 明白な実装
+
+==== ユーザーを登録する
 
 * [ ] ユーザーを管理できるようにしたい
 ** [ ] ユーザーを登録する
@@ -160,8 +166,6 @@ end
 *** [ ] ユーザー名が３文字未満の場合はエラー
 ** [ ] ユーザーを更新する
 *** [x] ユーザーの名前を更新する
-
-=== TODO2
 
 [source, ruby]
 ----
@@ -229,7 +233,7 @@ class User
 end
 ----
 
-=== TODO追加
+==== ユーザーを更新する
 
 * [ ] ユーザーを管理できるようにしたい
 ** [ ] ユーザーを登録する
@@ -406,7 +410,7 @@ Finished in 0.00113s
 *** [x] ユーザーの名前を更新する
 *** [x] ユーザー名が３文字未満の場合はエラー
 
-=== クラスの抽出
+==== クラスの抽出
 
 [source, ruby]
 ----
@@ -602,7 +606,7 @@ Finished in 0.00383s
 4 tests, 7 assertions, 0 failures, 0 errors, 0 skips
 ----
 
-=== メソッド名の変更
+==== メソッド名の変更
 
 [source, ruby]
 ----
@@ -755,7 +759,7 @@ Finished in 0.00131s
 4 tests, 7 assertions, 0 failures, 0 errors, 0 skips
 ----
 
-=== setterの削除
+==== setメソッドの削除
 
 [source, ruby]
 ----
@@ -1019,6 +1023,21 @@ end
 
 === リファクタリング
 
+* [ ] ユーザーを管理できるようにしたい
+** [x] ユーザーを登録する
+*** [x] IDと名前を持ったユーザーを作成する
+*** [x] ユーザー名が３文字未満の場合はエラー
+*** [x] ユーザー名を指定しない場合はエラー
+*** [x] ユーザー名が4文字の場合は登録される
+*** [x] IDを指定しない場合はエラー
+** [x] ユーザーを更新する
+*** [x] ユーザーの名前を更新する
+*** [x] ユーザー名が３文字未満の場合はエラー
+*** [x] ユーザー名を指定しない場合はエラー
+*** [x] ユーザー名が4文字の場合は登録される
+
+==== メソッドのインライン化
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -1150,6 +1169,8 @@ class UserTest < Minitest::Test
   end
 end
 ----
+
+==== キーワード引数の導入
 
 [source, ruby]
 ----
@@ -1291,6 +1312,8 @@ Finished in 0.00364s
 *** [x] ユーザー名を指定しない場合はエラー
 *** [x] ユーザー名が4文字の場合は登録される
 
+==== クラス図
+
 [plantuml]
 ----
 class User {
@@ -1308,6 +1331,8 @@ class UserName {
 User *-l UserId
 User *-r UserName
 ----
+
+==== ファイル構成
 
  /main.rb
    |--lib/
@@ -1355,3 +1380,5 @@ include::./code/01_value_object/lib/user.rb[]
 ----
 include::./code/01_value_object/test/user_test.rb[]
 ----
+
+=== ふりかえり

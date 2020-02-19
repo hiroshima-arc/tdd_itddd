@@ -525,21 +525,50 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_はじめに">1. はじめに</a></li>
 <li><a href="#_値オブジェクト">2. 値オブジェクト</a>
 <ul class="sectlevel2">
-<li><a href="#_todoリスト">2.1. TODOリスト</a></li>
-<li><a href="#_仮実装">2.2. 仮実装</a></li>
-<li><a href="#_三角測量">2.3. 三角測量</a></li>
-<li><a href="#_仮実装から実装へ">2.4. 仮実装から実装へ</a></li>
-<li><a href="#_リファクタリング">2.5. リファクタリング</a></li>
-<li><a href="#_todo追加">2.6. TODO追加</a></li>
-<li><a href="#_todo2">2.7. TODO2</a></li>
-<li><a href="#_todo追加_2">2.8. TODO追加</a></li>
-<li><a href="#_リファクタリング_2">2.9. リファクタリング</a></li>
-<li><a href="#_クラスの抽出">2.10. クラスの抽出</a></li>
-<li><a href="#_メソッド名の変更">2.11. メソッド名の変更</a></li>
-<li><a href="#_setterの削除">2.12. setterの削除</a></li>
-<li><a href="#_例外ケース">2.13. 例外ケース</a></li>
-<li><a href="#_リファクタリング_3">2.14. リファクタリング</a></li>
-<li><a href="#_モジュール分割">2.15. モジュール分割</a></li>
+<li><a href="#_ユーザーストーリー">2.1. ユーザーストーリー</a></li>
+<li><a href="#_todoリスト">2.2. TODOリスト</a></li>
+<li><a href="#_仮実装">2.3. 仮実装</a>
+<ul class="sectlevel3">
+<li><a href="#_ユーザーを登録する">2.3.1. ユーザーを登録する</a></li>
+</ul>
+</li>
+<li><a href="#_仮実装から実装へ">2.4. 仮実装から実装へ</a>
+<ul class="sectlevel3">
+<li><a href="#_ユーザーを登録_更新する">2.4.1. ユーザーを登録・更新する</a></li>
+</ul>
+</li>
+<li><a href="#_リファクタリング">2.5. リファクタリング</a>
+<ul class="sectlevel3">
+<li><a href="#_メソッドの抽出">2.5.1. メソッドの抽出</a></li>
+</ul>
+</li>
+<li><a href="#_明白な実装">2.6. 明白な実装</a>
+<ul class="sectlevel3">
+<li><a href="#_ユーザーを登録する_2">2.6.1. ユーザーを登録する</a></li>
+<li><a href="#_ユーザーを更新する">2.6.2. ユーザーを更新する</a></li>
+</ul>
+</li>
+<li><a href="#_リファクタリング_2">2.7. リファクタリング</a>
+<ul class="sectlevel3">
+<li><a href="#_クラスの抽出">2.7.1. クラスの抽出</a></li>
+<li><a href="#_メソッド名の変更">2.7.2. メソッド名の変更</a></li>
+<li><a href="#_setメソッドの削除">2.7.3. setメソッドの削除</a></li>
+</ul>
+</li>
+<li><a href="#_例外ケース">2.8. 例外ケース</a></li>
+<li><a href="#_リファクタリング_3">2.9. リファクタリング</a>
+<ul class="sectlevel3">
+<li><a href="#_メソッドのインライン化">2.9.1. メソッドのインライン化</a></li>
+<li><a href="#_キーワード引数の導入">2.9.2. キーワード引数の導入</a></li>
+</ul>
+</li>
+<li><a href="#_モジュール分割">2.10. モジュール分割</a>
+<ul class="sectlevel3">
+<li><a href="#_クラス図">2.10.1. クラス図</a></li>
+<li><a href="#_ファイル構成">2.10.2. ファイル構成</a></li>
+</ul>
+</li>
+<li><a href="#_ふりかえり">2.11. ふりかえり</a></li>
 </ul>
 </li>
 <li><a href="#_エンティティ">3. エンティティ</a></li>
@@ -567,10 +596,8 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="_値オブジェクト">2. 値オブジェクト</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>hhhhhhkhhk
-=== ユーザーストーリー</p>
-</div>
+<div class="sect2">
+<h3 id="_ユーザーストーリー">2.1. ユーザーストーリー</h3>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
@@ -589,8 +616,9 @@ table.CodeRay td.code>pre{padding:0}
 なぜならSNSサービスを構成する要素だから</pre>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_todoリスト">2.1. TODOリスト</h3>
+<h3 id="_todoリスト">2.2. TODOリスト</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -624,7 +652,9 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="_仮実装">2.2. 仮実装</h3>
+<h3 id="_仮実装">2.3. 仮実装</h3>
+<div class="sect3">
+<h4 id="_ユーザーを登録する">2.3.1. ユーザーを登録する</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">HelloTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -671,12 +701,11 @@ Finished in 0.00089s
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_三角測量">2.3. 三角測量</h3>
-
 </div>
 <div class="sect2">
 <h3 id="_仮実装から実装へ">2.4. 仮実装から実装へ</h3>
+<div class="sect3">
+<h4 id="_ユーザーを登録_更新する">2.4.1. ユーザーを登録・更新する</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -717,8 +746,11 @@ Finished in 0.00114s
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
 <h3 id="_リファクタリング">2.5. リファクタリング</h3>
+<div class="sect3">
+<h4 id="_メソッドの抽出">2.5.1. メソッドの抽出</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -756,8 +788,11 @@ Finished in 0.00114s
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_todo追加">2.6. TODO追加</h3>
+<h3 id="_明白な実装">2.6. 明白な実装</h3>
+<div class="sect3">
+<h4 id="_ユーザーを登録する_2">2.6.1. ユーザーを登録する</h4>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -792,9 +827,6 @@ Finished in 0.00114s
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_todo2">2.7. TODO2</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -862,8 +894,8 @@ Finished in 0.00114s
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_todo追加_2">2.8. TODO追加</h3>
+<div class="sect3">
+<h4 id="_ユーザーを更新する">2.6.2. ユーザーを更新する</h4>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1059,8 +1091,9 @@ Finished in 0.00113s
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_リファクタリング_2">2.9. リファクタリング</h3>
+<h3 id="_リファクタリング_2">2.7. リファクタリング</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1098,9 +1131,8 @@ Finished in 0.00113s
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_クラスの抽出">2.10. クラスの抽出</h3>
+<div class="sect3">
+<h4 id="_クラスの抽出">2.7.1. クラスの抽出</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1296,8 +1328,8 @@ Finished in 0.00383s
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_メソッド名の変更">2.11. メソッド名の変更</h3>
+<div class="sect3">
+<h4 id="_メソッド名の変更">2.7.2. メソッド名の変更</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1450,8 +1482,8 @@ Finished in 0.00131s
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_setterの削除">2.12. setterの削除</h3>
+<div class="sect3">
+<h4 id="_setメソッドの削除">2.7.3. setメソッドの削除</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserId</span>
@@ -1536,8 +1568,9 @@ Finished in 0.00212s
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_例外ケース">2.13. 例外ケース</h3>
+<h3 id="_例外ケース">2.8. 例外ケース</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1754,7 +1787,61 @@ Finished in 0.00212s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_リファクタリング_3">2.14. リファクタリング</h3>
+<h3 id="_リファクタリング_3">2.9. リファクタリング</h3>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10063; ユーザーを管理できるようにしたい</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10003; ユーザーを登録する</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10003; IDと名前を持ったユーザーを作成する</p>
+</li>
+<li>
+<p>&#10003; ユーザー名が３文字未満の場合はエラー</p>
+</li>
+<li>
+<p>&#10003; ユーザー名を指定しない場合はエラー</p>
+</li>
+<li>
+<p>&#10003; ユーザー名が4文字の場合は登録される</p>
+</li>
+<li>
+<p>&#10003; IDを指定しない場合はエラー</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>&#10003; ユーザーを更新する</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10003; ユーザーの名前を更新する</p>
+</li>
+<li>
+<p>&#10003; ユーザー名が３文字未満の場合はエラー</p>
+</li>
+<li>
+<p>&#10003; ユーザー名を指定しない場合はエラー</p>
+</li>
+<li>
+<p>&#10003; ユーザー名が4文字の場合は登録される</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_メソッドのインライン化">2.9.1. メソッドのインライン化</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1885,6 +1972,9 @@ Finished in 0.00212s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_キーワード引数の導入">2.9.2. キーワード引数の導入</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -2011,8 +2101,9 @@ Finished in 0.00364s
 </div>
 </div>
 </div>
+</div>
 <div class="sect2">
-<h3 id="_モジュール分割">2.15. モジュール分割</h3>
+<h3 id="_モジュール分割">2.10. モジュール分割</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -2065,11 +2156,16 @@ Finished in 0.00364s
 </li>
 </ul>
 </div>
+<div class="sect3">
+<h4 id="_クラス図">2.10.1. クラス図</h4>
 <div class="imageblock">
 <div class="content">
 <img src="diag-e3872d1af02b3cde210df7e2e63daef3.png" alt="diag e3872d1af02b3cde210df7e2e63daef3" width="373" height="104">
 </div>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_ファイル構成">2.10.2. ファイル構成</h4>
 <div class="literalblock">
 <div class="content">
 <pre>/main.rb
@@ -2233,6 +2329,11 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ふりかえり">2.11. ふりかえり</h3>
+
 </div>
 </div>
 </div>
