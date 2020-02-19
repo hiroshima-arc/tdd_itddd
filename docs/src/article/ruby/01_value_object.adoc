@@ -1,0 +1,1357 @@
+:toc: left
+:toclevels: 5
+:sectnums:
+:source-highlighter: coderay
+hhhhhhkhhk
+=== ユーザーストーリー
+
+[quote, Martin Fowler's Bliki (ja), 'https://bliki-ja.github.io/UserStory']
+____
+ユーザーストーリーとは、ソフトウェアシステムに求められるふるまいをまとめたものだ。 アジャイルソフトウェア開発の世界で広く使われており、大量の機能を細かく分解して計画作りに生かせるようにしている。 同じような概念を表す用語としてフィーチャーという言い方もあるが、 最近のアジャイル界隈では「ストーリー」とか「ユーザーストーリー」とかいう用語のほうが広まっている。
+____
+
+
+  管理者として
+  ユーザーを管理できるようにしたい
+  なぜならSNSサービスを構成する要素だから
+
+
+=== TODOリスト
+
+* [ ] ユーザーを管理できるようにしたい
+** [ ] ユーザーを登録する
+*** [ ] IDと名前を持ったユーザーを作成する
+** [ ] ユーザーを更新する
+*** [ ] ユーザーの名前を更新する
+
+=== 仮実装
+
+[source, ruby]
+----
+class HelloTest < Minitest::Test
+  def test_greeting
+    assert_equal 'hello world', greeting
+  end
+end
+
+def greeting
+  'hello world'
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def test_IDと名前を持ったユーザーを作成する
+    user = User.new('1', 'Bob')
+    assert_equal '1', user.id
+    assert_equal 'Bob', user.name
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb 
+Started with run options --seed 6402
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+
+Finished in 0.00089s
+1 tests, 2 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== 三角測量
+
+=== 仮実装から実装へ
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def test_IDと名前を持ったユーザーを作成する
+    user = User.new('1', 'Bob')
+    assert_equal '1', user.id
+    assert_equal 'Bob', user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    user = User.new('1', 'Bob')
+    user.name = 'Alice'
+    assert_equal 'Alice', user.name
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb 
+Started with run options --seed 23719
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_ユーザーの名前を更新する                                               PASS (0.00s)
+
+Finished in 0.00114s
+2 tests, 3 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== リファクタリング
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def test_IDと名前を持ったユーザーを作成する
+    user = User.new('1', 'Bob')
+    assert_equal '1', user.id
+    assert_equal 'Bob', user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    user = User.new('1', 'Bob')
+    user.name = 'Alice'
+    assert_equal 'Alice', user.name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+end
+----
+
+=== TODO追加
+
+* [ ] ユーザーを管理できるようにしたい
+** [ ] ユーザーを登録する
+*** [x] IDと名前を持ったユーザーを作成する
+*** [ ] ユーザー名が３文字未満の場合はエラー
+** [ ] ユーザーを更新する
+*** [x] ユーザーの名前を更新する
+
+=== TODO2
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+
+  def test_ユーザー名が３文字未満の場合はエラー
+    e = assert_raises RuntimeError do
+      User.new(1, 'a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @id = id
+    @name = name
+  end
+end
+----
+
+=== TODO追加
+
+* [ ] ユーザーを管理できるようにしたい
+** [ ] ユーザーを登録する
+*** [x] IDと名前を持ったユーザーを作成する
+*** [x] ユーザー名が３文字未満の場合はエラー
+** [ ] ユーザーを更新する
+*** [x] ユーザーの名前を更新する
+*** [ ] ユーザー名が３文字未満の場合はエラー
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+
+  def test_ユーザー名が３文字未満の場合はエラー
+    e = assert_raises RuntimeError do
+      User.new(1, 'a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+
+  def test_ユーザー名が３文字未満の場合はエラー
+    e = assert_raises RuntimeError do
+      User.new(1, 'a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満の場合はエラー
+    e = assert_raises RuntimeError do
+      @user.name = 'a'
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def name=(name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @name = name
+  end
+
+  def initialize(id, name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      User.new(1, 'a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.name = 'a'
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def name=(name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @name = name
+  end
+
+  def initialize(id, name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb
+Started with run options --seed 14710
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_ユーザーの名前を更新する                                               PASS (0.00s)
+  test_ユーザー名が３文字未満で更新する場合はエラー                                     PASS (0.00s)
+  test_ユーザー名が３文字未満で新規登録する場合はエラー                                   PASS (0.00s)
+
+Finished in 0.00113s
+4 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== リファクタリング
+
+* [ ] ユーザーを管理できるようにしたい
+** [ ] ユーザーを登録する
+*** [x] IDと名前を持ったユーザーを作成する
+*** [x] ユーザー名が３文字未満の場合はエラー
+** [ ] ユーザーを更新する
+*** [x] ユーザーの名前を更新する
+*** [x] ユーザー名が３文字未満の場合はエラー
+
+=== クラスの抽出
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    @user = User.new('1', 'Bob')
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      User.new(1, 'a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.name = 'a'
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def name=(name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @name = name
+  end
+
+  def initialize(id, name)
+    raise 'ユーザー名は3文字以上です。' if name.length < 3
+
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_name = UserName.new('Bob')
+    @user = User.new('1', user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.name = 'a'
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserName
+  attr_accessor :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def name=(name)
+    @name = UserName.new(name)
+  end
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_id = UserId.new('1')
+    user_name = UserName.new('Bob')
+    @user = User.new(user_id, user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id.value
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.name = 'a'
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserId
+  attr_accessor :value
+
+  def initialize(value)
+    @value = value
+  end
+end
+
+class UserName
+  attr_accessor :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def name=(name)
+    @name = UserName.new(name)
+  end
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb 
+Started with run options --seed 21697
+
+UserTest
+  test_ユーザー名が３文字未満で更新する場合はエラー                                     PASS (0.00s)
+  test_ユーザー名が３文字未満で新規登録する場合はエラー                                   PASS (0.00s)
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_ユーザーの名前を更新する                                               PASS (0.00s)
+
+Finished in 0.00383s
+4 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== メソッド名の変更
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_id = UserId.new('1')
+    user_name = UserName.new('Bob')
+    @user = User.new(user_id, user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id.value
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.name = 'Alic'
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.name = 'a'
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserId
+  attr_accessor :value
+
+  def initialize(value)
+    @value = value
+  end
+end
+
+class UserName
+  attr_accessor :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def name=(name)
+    @name = UserName.new(name)
+  end
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_id = UserId.new('1')
+    user_name = UserName.new('Bob')
+    @user = User.new(user_id, user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id.value
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.change_name('Alic')
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.change_name('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserId
+  attr_accessor :value
+
+  def initialize(value)
+    @value = value
+  end
+end
+
+class UserName
+  attr_accessor :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+
+  def change_name(name)
+    @name = UserName.new(name)
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb
+Started with run options --seed 48077
+
+UserTest
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_ユーザー名が３文字未満で新規登録する場合はエラー                                   PASS (0.00s)
+  test_ユーザーの名前を更新する                                               PASS (0.00s)
+  test_ユーザー名が３文字未満で更新する場合はエラー                                     PASS (0.00s)
+
+Finished in 0.00131s
+4 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== setterの削除
+
+[source, ruby]
+----
+class UserId
+  attr_accessor :value
+
+  def initialize(value)
+    @value = value
+  end
+end
+
+class UserName
+  attr_accessor :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_accessor :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+
+  def change_name(name)
+    @name = UserName.new(name)
+  end
+end
+----
+
+[source, ruby]
+----
+class UserId
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+end
+
+class UserName
+  attr_reader :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_reader :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+
+  def change_name(name)
+    @name = UserName.new(name)
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb
+Started with run options --seed 52842
+
+UserTest
+  test_ユーザーの名前を更新する                                               PASS (0.00s)
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_ユーザー名が３文字未満で更新する場合はエラー                                     PASS (0.00s)
+  test_ユーザー名が３文字未満で新規登録する場合はエラー                                   PASS (0.00s)
+
+Finished in 0.00212s
+4 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== 例外ケース
+
+* [ ] ユーザーを管理できるようにしたい
+** [ ] ユーザーを登録する
+*** [x] IDと名前を持ったユーザーを作成する
+*** [x] ユーザー名が３文字未満の場合はエラー
+*** [ ] ユーザー名を指定しない場合はエラー
+*** [ ] ユーザー名が4文字の場合は登録される
+*** [ ] IDを指定しない場合はエラー
+** [ ] ユーザーを更新する
+*** [x] ユーザーの名前を更新する
+*** [x] ユーザー名が３文字未満の場合はエラー
+*** [ ] ユーザー名を指定しない場合はエラー
+*** [ ] ユーザー名が4文字の場合は登録される
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_id = UserId.new('1')
+    user_name = UserName.new('Bob')
+    @user = User.new(user_id, user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id.value
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.change_name('Alic')
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.change_name('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+end
+
+class UserId
+  attr_reader :value
+
+  def initialize(value)
+    @value = value
+  end
+end
+
+class UserName
+  attr_reader :value
+
+  def initialize(value)
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_reader :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+
+  def change_name(name)
+    @name = UserName.new(name)
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_id = UserId.new('1')
+    user_name = UserName.new('Bob')
+    @user = User.new(user_id, user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id.value
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.change_name('Alic')
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が4文字で新規登録する場合は登録される
+    user = User.new(UserId.new('1'), UserName.new('abcd'))
+    assert_equal 'abcd', user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.change_name('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が4文字で更新する場合は登録される
+    user = User.new(UserId.new('1'), UserName.new('abc'))
+    user.change_name('abcd')
+    assert_equal 'abcd', user.name.value
+  end
+
+  def test_ユーザー名を指定しない場合はエラー
+    assert_raises RuntimeError do
+      UserName.new(nil)
+    end
+  end
+
+  def test_IDを指定しない場合はエラー
+    assert_raises RuntimeError do
+      UserId.new(nil)
+    end
+  end
+end
+
+class UserId
+  attr_reader :value
+
+  def initialize(value)
+    raise if value.nil?
+
+    @value = value
+  end
+end
+
+class UserName
+  attr_reader :value
+
+  def initialize(value)
+    raise if value.nil?
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_reader :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+
+  def change_name(name)
+    @name = UserName.new(name)
+  end
+end
+----
+
+=== リファクタリング
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  def setup
+    user_id = UserId.new('1')
+    user_name = UserName.new('Bob')
+    @user = User.new(user_id, user_name)
+  end
+
+  def test_IDと名前を持ったユーザーを作成する
+    assert_equal '1', @user.id.value
+    assert_equal 'Bob', @user.name.value
+  end
+
+  def test_ユーザーの名前を更新する
+    @user.change_name('Alic')
+    assert_equal 'Alic', @user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で新規登録する場合はエラー
+    e = assert_raises RuntimeError do
+      UserName.new('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が4文字で新規登録する場合は登録される
+    user = User.new(UserId.new('1'), UserName.new('abcd'))
+    assert_equal 'abcd', user.name.value
+  end
+
+  def test_ユーザー名が３文字未満で更新する場合はエラー
+    e = assert_raises RuntimeError do
+      @user.change_name('a')
+    end
+
+    assert_equal 'ユーザー名は3文字以上です。', e.message
+  end
+
+  def test_ユーザー名が4文字で更新する場合は登録される
+    user = User.new(UserId.new('1'), UserName.new('abc'))
+    user.change_name('abcd')
+    assert_equal 'abcd', user.name.value
+  end
+
+  def test_ユーザー名を指定しない場合はエラー
+    assert_raises RuntimeError do
+      UserName.new(nil)
+    end
+  end
+
+  def test_IDを指定しない場合はエラー
+    assert_raises RuntimeError do
+      UserId.new(nil)
+    end
+  end
+end
+
+----
+
+[source, ruby]
+----
+
+class UserTest < Minitest::Test
+  describe 'ユーザーを登録する' do
+    def setup
+      user_id = UserId.new('1')
+      user_name = UserName.new('Bob')
+      @user = User.new(user_id, user_name)
+    end
+
+    def test_IDと名前を持ったユーザーを作成する
+      assert_equal '1', @user.id.value
+      assert_equal 'Bob', @user.name.value
+    end
+
+    def test_ユーザー名が３文字未満で新規登録する場合はエラー
+      e = assert_raises RuntimeError do
+        UserName.new('a')
+      end
+
+      assert_equal 'ユーザー名は3文字以上です。', e.message
+    end
+
+    def test_ユーザー名が4文字で新規登録する場合は登録される
+      user = User.new(UserId.new('1'), UserName.new('abcd'))
+      assert_equal 'abcd', user.name.value
+    end
+
+    def test_ユーザー名を指定しない場合はエラー
+      assert_raises RuntimeError do
+        UserName.new(nil)
+      end
+    end
+
+    def test_IDを指定しない場合はエラー
+      assert_raises RuntimeError do
+        UserId.new(nil)
+      end
+    end
+  end
+
+  describe 'ユーザーを更新する' do
+    def setup
+      user_id = UserId.new('1')
+      user_name = UserName.new('Bob')
+      @user = User.new(user_id, user_name)
+    end
+
+    def test_ユーザーの名前を更新する
+      @user.change_name('Alic')
+      assert_equal 'Alic', @user.name.value
+    end
+
+    def test_ユーザー名が３文字未満で更新する場合はエラー
+      e = assert_raises RuntimeError do
+        @user.change_name('a')
+      end
+
+      assert_equal 'ユーザー名は3文字以上です。', e.message
+    end
+
+    def test_ユーザー名が4文字で更新する場合は登録される
+      user = User.new(UserId.new('1'), UserName.new('abc'))
+      user.change_name('abcd')
+      assert_equal 'abcd', user.name.value
+    end
+  end
+end
+----
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  describe 'ユーザーを登録する' do
+    def setup
+      id = UserId.new('1')
+      name = UserName.new('Bob')
+      @user = User.new(user_id: id, user_name: name)
+    end
+
+    def test_IDと名前を持ったユーザーを作成する
+      assert_equal '1', @user.id.value
+      assert_equal 'Bob', @user.name.value
+    end
+
+    def test_ユーザー名が３文字未満で新規登録する場合はエラー
+      e = assert_raises RuntimeError do
+        UserName.new('a')
+      end
+
+      assert_equal 'ユーザー名は3文字以上です。', e.message
+    end
+
+    def test_ユーザー名が4文字で新規登録する場合は登録される
+      user = User.new(user_id: UserId.new('1'), user_name: UserName.new('abcd'))
+      assert_equal 'abcd', user.name.value
+    end
+
+    def test_ユーザー名を指定しない場合はエラー
+      assert_raises RuntimeError do
+        UserName.new(nil)
+      end
+    end
+
+    def test_IDを指定しない場合はエラー
+      assert_raises RuntimeError do
+        UserId.new(nil)
+      end
+    end
+  end
+
+  describe 'ユーザーを更新する' do
+    def setup
+      id = UserId.new('1')
+      name = UserName.new('Bob')
+      @user = User.new(user_id: id, user_name: name)
+    end
+
+    def test_ユーザーの名前を更新する
+      @user.change_name('Alic')
+      assert_equal 'Alic', @user.name.value
+    end
+
+    def test_ユーザー名が３文字未満で更新する場合はエラー
+      e = assert_raises RuntimeError do
+        @user.change_name('a')
+      end
+
+      assert_equal 'ユーザー名は3文字以上です。', e.message
+    end
+
+    def test_ユーザー名が4文字で更新する場合は登録される
+      user = User.new(user_id: UserId.new('1'), user_name: UserName.new('abc'))
+      user.change_name('abcd')
+      assert_equal 'abcd', user.name.value
+    end
+  end
+end
+
+class UserId
+  attr_reader :value
+
+  def initialize(value)
+    raise if value.nil?
+
+    @value = value
+  end
+end
+
+class UserName
+  attr_reader :value
+
+  def initialize(value)
+    raise if value.nil?
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_reader :id, :name
+
+  def initialize(user_id:, user_name:)
+    @id = user_id
+    @name = user_name
+  end
+
+  def change_name(name)
+    @name = UserName.new(name)
+  end
+end
+----
+
+[source, bash]
+----
+$ ruby test/hello_test.rb 
+Started with run options --seed 52173
+
+ユーザーを更新する
+  test_ユーザーの名前を更新する                                               PASS (0.00s)
+  test_ユーザー名が4文字で更新する場合は登録される                                     PASS (0.00s)
+  test_ユーザー名が３文字未満で更新する場合はエラー                                     PASS (0.00s)
+
+ユーザーを登録する
+  test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
+  test_IDを指定しない場合はエラー                                             PASS (0.00s)
+  test_ユーザー名が4文字で新規登録する場合は登録される                                   PASS (0.00s)
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_ユーザー名が３文字未満で新規登録する場合はエラー                                   PASS (0.00s)
+
+Finished in 0.00364s
+8 tests, 11 assertions, 0 failures, 0 errors, 0 skips
+----
+
+=== モジュール分割
+
+* [ ] ユーザーを管理できるようにしたい
+** [x] ユーザーを登録する
+*** [x] IDと名前を持ったユーザーを作成する
+*** [x] ユーザー名が３文字未満の場合はエラー
+*** [x] ユーザー名を指定しない場合はエラー
+*** [x] ユーザー名が4文字の場合は登録される
+*** [x] IDを指定しない場合はエラー
+** [x] ユーザーを更新する
+*** [x] ユーザーの名前を更新する
+*** [x] ユーザー名が３文字未満の場合はエラー
+*** [x] ユーザー名を指定しない場合はエラー
+*** [x] ユーザー名が4文字の場合は登録される
+
+[plantuml]
+----
+class User {
+  UserId id
+  UserName name
+  void change_name()
+}
+class UserId {
+  String value
+}
+class UserName {
+  String value
+}
+
+User *-l UserId
+User *-r UserName
+----
+
+ /main.rb
+   |--lib/
+       |
+        -- sns.rb
+        -- user_id.rb
+        -- user_name.rb
+        -- user.rb
+   |--test/
+       |
+        -- user_test.rb
+
+./main.rb
+[source, ruby]
+----
+include::./code/01_value_object/main.rb[]
+----
+
+./lib/sns.rb
+[source, ruby]
+----
+include::./code/01_value_object/lib/sns.rb[]
+----
+
+./lib/user_id.rb
+[source, ruby]
+----
+include::./code/01_value_object/lib/user_id.rb[]
+----
+
+./lib/user_name.rb
+[source, ruby]
+----
+include::./code/01_value_object/lib/user_name.rb[]
+----
+
+./lib/user.rb
+[source, ruby]
+----
+include::./code/01_value_object/lib/user.rb[]
+----
+
+./test/user_test.rb
+[source, ruby]
+----
+include::./code/01_value_object/test/user_test.rb[]
+----
