@@ -17,3 +17,7 @@ Naming/MethodName:
 Naming/AsciiIdentifiers:
   Exclude:
     - 'test/**'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**'

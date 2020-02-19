@@ -1,1 +1,1 @@
-require './test/main_test.rb'
+require './test/user_test.rb'
