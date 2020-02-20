@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# User
 class User
   attr_reader :id, :name
 
