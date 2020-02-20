@@ -1197,10 +1197,10 @@ Finished in 0.00075s
 <p>&#10003; ユーザー名が３文字未満の場合はエラー</p>
 </li>
 <li>
-<p>&#10063; ユーザー名を指定しない場合はエラー</p>
+<p>&#10063; ユーザー名が４文字の場合は登録される</p>
 </li>
 <li>
-<p>&#10063; ユーザー名が4文字の場合は登録される</p>
+<p>&#10063; ユーザー名を指定しない場合はエラー</p>
 </li>
 <li>
 <p>&#10063; IDを指定しない場合はエラー</p>
@@ -1286,7 +1286,7 @@ Finished in 0.00075s
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
   <span class="keyword">end</span>
 
-  <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
+  <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字の場合は登録される</span>
     user = <span class="constant">User</span>.new(<span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
   <span class="keyword">end</span>
@@ -1359,7 +1359,7 @@ Finished in 0.00075s
 <p>&#10003; ユーザー名を指定しない場合はエラー</p>
 </li>
 <li>
-<p>&#10003; ユーザー名が4文字の場合は登録される</p>
+<p>&#10003; ユーザー名が４文字の場合は登録される</p>
 </li>
 <li>
 <p>&#10003; IDを指定しない場合はエラー</p>
@@ -1396,7 +1396,7 @@ Finished in 0.00075s
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
   <span class="keyword">end</span>
 
-  <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
+  <span class="keyword">def</span> <span class="function">test_ユーザー名が４文字の場合は登録される</span>
     user = <span class="constant">User</span>.new(<span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
   <span class="keyword">end</span>
@@ -1468,7 +1468,7 @@ Finished in 0.00075s
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
     <span class="keyword">end</span>
 
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が４文字の場合は登録される</span>
       user = <span class="constant">User</span>.new(<span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
     <span class="keyword">end</span>
@@ -1544,7 +1544,7 @@ Finished in 0.00075s
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
     <span class="keyword">end</span>
 
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が４文字の場合は登録される</span>
       user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>),
                       <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
@@ -1598,17 +1598,16 @@ Finished in 0.00075s
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
-Started with run options --seed 13801
+Started with run options --seed 43869
 
 ユーザーを登録する
   test_IDを指定しない場合はエラー                                             PASS (0.00s)
   test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
   test_ユーザー名が３文字未満の場合はエラー                                         PASS (0.00s)
-  test_ユーザー名が4文字で新規登録する場合は登録される                                   PASS (0.00s)
+  test_ユーザー名が４文字の場合は登録される                                         PASS (0.00s)
   test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
 
-Finished in 0.00139s
-5 tests, 7 assertions, 0 failures, 0 errors, 0 skips</code></pre>
+Finished in 0.00096s</code></pre>
 </div>
 </div>
 </div>
@@ -1637,7 +1636,7 @@ Finished in 0.00139s
 <p>&#10003; ユーザー名を指定しない場合はエラー</p>
 </li>
 <li>
-<p>&#10003; ユーザー名が4文字の場合は登録される</p>
+<p>&#10003; ユーザー名が４文字の場合は登録される</p>
 </li>
 <li>
 <p>&#10003; IDを指定しない場合はエラー</p>
@@ -1773,7 +1772,7 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
     <span class="keyword">end</span>
 
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が４文字の場合は登録される</span>
       user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>),
                       <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value

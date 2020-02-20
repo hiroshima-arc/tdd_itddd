@@ -26,7 +26,7 @@ class UserTest < Minitest::Test
       assert_equal 'ユーザー名は3文字以上です。', e.message
     end
 
-    def test_ユーザー名が4文字で新規登録する場合は登録される
+    def test_ユーザー名が４文字の場合は登録される
       user = User.new(user_id: UserId.new('1'),
                       user_name: UserName.new('abcd'))
       assert_equal 'abcd', user.name.value
