@@ -1652,9 +1652,9 @@ Finished in 0.00139s
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
 
-require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user.rb</span><span class="delimiter">'</span></span>
 require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user_id.rb</span><span class="delimiter">'</span></span>
-require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user_name.rb</span><span class="delimiter">'</span></span></code></pre>
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user_name.rb</span><span class="delimiter">'</span></span>
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/user.rb</span><span class="delimiter">'</span></span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -1662,7 +1662,6 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
 
-<span class="comment"># UserID Value Object</span>
 <span class="keyword">class</span> <span class="class">UserId</span>
   attr_reader <span class="symbol">:value</span>
 
@@ -1679,7 +1678,6 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
 
-<span class="comment"># User Name Value Object</span>
 <span class="keyword">class</span> <span class="class">UserName</span>
   attr_reader <span class="symbol">:value</span>
 
@@ -1697,17 +1695,12 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
 
-<span class="comment"># User Value Object</span>
 <span class="keyword">class</span> <span class="class">User</span>
   attr_reader <span class="symbol">:id</span>, <span class="symbol">:name</span>
 
   <span class="keyword">def</span> <span class="function">initialize</span>(<span class="key">user_id</span>:, <span class="key">user_name</span>:)
     <span class="instance-variable">@id</span> = user_id
     <span class="instance-variable">@name</span> = user_name
-  <span class="keyword">end</span>
-
-  <span class="keyword">def</span> <span class="function">change_name</span>(name)
-    <span class="instance-variable">@name</span> = <span class="constant">UserName</span>.new(name)
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
@@ -1735,7 +1728,7 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
     <span class="keyword">end</span>
 
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満で新規登録する場合はエラー</span>
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
       e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
         <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
       <span class="keyword">end</span>
@@ -1744,7 +1737,8 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
     <span class="keyword">end</span>
 
     <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で新規登録する場合は登録される</span>
-      user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
+      user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>),
+                      <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
       assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
     <span class="keyword">end</span>
 
@@ -1760,33 +1754,6 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
       <span class="keyword">end</span>
     <span class="keyword">end</span>
   <span class="keyword">end</span>
-
-  describe <span class="string"><span class="delimiter">'</span><span class="content">ユーザーを更新する</span><span class="delimiter">'</span></span> <span class="keyword">do</span>
-    <span class="keyword">def</span> <span class="function">setup</span>
-      id = <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>)
-      name = <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
-      <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(<span class="key">user_id</span>: id, <span class="key">user_name</span>: name)
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_ユーザーの名前を更新する</span>
-      <span class="instance-variable">@user</span>.change_name(<span class="string"><span class="delimiter">'</span><span class="content">Alic</span><span class="delimiter">'</span></span>)
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Alic</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満で更新する場合はエラー</span>
-      e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-        <span class="instance-variable">@user</span>.change_name(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
-      <span class="keyword">end</span>
-
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が4文字で更新する場合は登録される</span>
-      user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abc</span><span class="delimiter">'</span></span>))
-      user.change_name(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>)
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
-    <span class="keyword">end</span>
-  <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
@@ -1799,7 +1766,7 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-20 13:12:30 JST
+Last updated 2020-02-20 13:14:27 JST
 </div>
 </div>
 </body>

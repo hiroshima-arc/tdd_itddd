@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# UserID Value Object
 class UserId
   attr_reader :value
 
