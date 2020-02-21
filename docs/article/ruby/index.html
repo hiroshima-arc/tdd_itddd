@@ -608,6 +608,9 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_ユーザーストーリー">2.1. ユーザーストーリー</h3>
+<div class="paragraph">
+<p>まず <strong>ユーザーストーリー</strong> をもとに仕様を整理します。</p>
+</div>
 <div class="quoteblock">
 <blockquote>
 <div class="paragraph">
@@ -619,20 +622,27 @@ table.CodeRay td.code>pre{padding:0}
 <cite><a href="https://bliki-ja.github.io/UserStory" class="bare">https://bliki-ja.github.io/UserStory</a></cite>
 </div>
 </div>
+<div class="paragraph">
+<p>SNS(ソーシャルネットワークサービス)のユーザー機能ということなので以下の <strong>ユーザーストーリー</strong> を作成しました。</p>
+</div>
 <div class="literalblock">
 <div class="content">
-<pre>管理者として
+<pre>利用者として
 ユーザーを管理できるようにしたい
-なぜならSNSサービスを構成する要素だから</pre>
+なぜならユーザーはシステムを利用するために必要だから</pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_todoリスト">2.2. TODOリスト</h3>
+<div class="paragraph">
+<p><strong>ユーザーストーリー</strong> を作成したらそれをもとに <strong>TODOリスト</strong> を作成します。
+<strong>TODOリスト</strong> はプログラムとして実行できる粒度で具体的に記述します。</p>
+</div>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -655,6 +665,9 @@ table.CodeRay td.code>pre{padding:0}
 <h3 id="_仮実装">2.3. 仮実装</h3>
 <div class="sect3">
 <h4 id="_ユーザーを登録する">2.3.1. ユーザーを登録する</h4>
+<div class="paragraph">
+<p>さっそく <strong>TODOリスト</strong> の１つ目を片付けましょう。まずは <strong>テストファースト</strong> で最初に失敗するコードを書きます。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">HelloTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -668,6 +681,9 @@ table.CodeRay td.code>pre{padding:0}
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>サンプルコードを以下のコードに書き換えてテストを実行します。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -678,6 +694,9 @@ table.CodeRay td.code>pre{padding:0}
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>テストは失敗しました。 <code>NameError: uninitialized constant UserTest::User</code> クラスが定義されていないからですね。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -693,6 +712,10 @@ Minitest::UnexpectedError:         NameError: uninitialized constant UserTest::U
 Finished in 0.00135s
 1 tests, 0 assertions, 0 failures, 1 errors, 0 skips</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>テストをパスさせるためにUserクラスを追加します。
+まずはテストをパスさせるために <strong>仮実装</strong> でベタ書きのコードで実装します。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -714,6 +737,9 @@ Finished in 0.00135s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>テストをパスさせてレッドからグリーンになりました。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
@@ -732,6 +758,9 @@ Finished in 0.00072s
 <h3 id="_仮実装から実装へ">2.4. 仮実装から実装へ</h3>
 <div class="sect3">
 <h4 id="_ユーザーを登録する_2">2.4.1. ユーザーを登録する</h4>
+<div class="paragraph">
+<p><strong>仮実装</strong> のままでは別のユーザーを作ることが出来ないので、コンストラクタ経由で作成できるようにします。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -752,6 +781,9 @@ Finished in 0.00072s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>テストが通りました。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
@@ -763,6 +795,10 @@ UserTest
 Finished in 0.00089s
 1 tests, 2 assertions, 0 failures, 0 errors, 0 skips</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>仮実装から実装へ</strong> を経て一つ目の <strong>TODOリスト</strong> を片付けたのでここでバージョン管理システムを使ってコミットしておきます。
+以下、 <strong>TODOリスト</strong> を片付けるたびにコミットしていきます。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -777,7 +813,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -795,8 +831,14 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>レッド・グリーンときたので続いて <strong>リファクタリング</strong> を実施します。</p>
+</div>
 <div class="sect3">
 <h4 id="_メソッドの抽出">2.5.1. メソッドの抽出</h4>
+<div class="paragraph">
+<p>本来はコードの重複が発生してからやるのですが <strong>メソッドの抽出</strong> を適用してフィクスチャーを抽出しておきます。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -807,6 +849,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Rubyのテスティングフレームワークminitestではフィクスチャーはsetupメソッドです。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -822,16 +867,20 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>テストが壊れていないことを確認したらコミットします。</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_明白な実装">2.6. 明白な実装</h3>
-<div class="sect3">
-<h4 id="_ユーザーを登録する_3">2.6.1. ユーザーを登録する</h4>
+<div class="paragraph">
+<p>続いて <strong>TODOリスト</strong> を追加します。</p>
+</div>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -852,6 +901,11 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </li>
 </ul>
 </div>
+<div class="sect3">
+<h4 id="_ユーザーを登録する_3">2.6.1. ユーザーを登録する</h4>
+<div class="paragraph">
+<p>追加した <strong>TODOリスト</strong> に取り掛かります。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -874,6 +928,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>まず、失敗するテストを書いて <strong>明白な実装</strong> でテストをパスするようにします。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -908,6 +965,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>レッドからグリーンになったことを確認したらコミットします。</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -915,7 +975,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -938,6 +998,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </div>
 <div class="sect3">
 <h4 id="_クラスの抽出">2.7.1. クラスの抽出</h4>
+<div class="paragraph">
+<p><strong>クラスの抽出</strong> を適用して Userクラスから <strong>値オブジェクト</strong> を抽出する <strong>リファクタリング</strong> を適用します。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -970,6 +1033,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>まずはUserIdクラスを抽出します。テストコードをUserIdクラスを使って呼び出すように変更したらエラーを修正してグリーンの状態を維持します。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1013,6 +1079,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>続いてUserNameクラスを抽出します。テストコードも同様に変更します。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1063,6 +1132,9 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>テストコードを修正してグリーンになったらコミットして <strong>クラスの抽出</strong> の <strong>リファクタリング</strong> 完了です。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1080,6 +1152,10 @@ Finished in 0.00071s
 </div>
 <div class="sect3">
 <h4 id="_setメソッドの削除">2.7.2. setメソッドの削除</h4>
+<div class="paragraph">
+<p><strong>クラスの抽出</strong> により <strong>値オブジェクト</strong> を抽出することは出来ましたがインスタンスの値が変更可能な状態です。
+<strong>setメソッドの削除</strong> を適用して <strong>値オブジェクト</strong> の要求を満たす不変オブジェクトに <strong>リファクタリング</strong> しましょう。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1130,6 +1206,9 @@ Finished in 0.00071s
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>アックセッサメソッドを読み取り専用に変更します。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1182,6 +1261,9 @@ Finished in 0.00071s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>テストが壊れていないことを確認したらコミットします。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
@@ -1199,12 +1281,14 @@ Finished in 0.00075s
 </div>
 <div class="sect2">
 <h3 id="_例外ケース">2.8. 例外ケース</h3>
-<div class="sect3">
-<h4 id="_ユーザーを登録する_4">2.8.1. ユーザーを登録する</h4>
+<div class="paragraph">
+<p>正常系の実装が出来たので続いて例外系の実装に入りたいと思います。
+まず <strong>TODOリスト</strong> を追加します。</p>
+</div>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1234,6 +1318,11 @@ Finished in 0.00075s
 </li>
 </ul>
 </div>
+<div class="sect3">
+<h4 id="_ユーザーを登録する_4">2.8.1. ユーザーを登録する</h4>
+<div class="paragraph">
+<p>追加した <strong>TODOリスト</strong> をテストを壊さないように１つづつ片付けて行くとしましょう。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1284,6 +1373,9 @@ Finished in 0.00075s
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>実装後のコードです。実際は１つテストコードを追加したらプロダクトコードを実装してレッド・グリーンのサイクルを回しています。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1356,6 +1448,9 @@ Finished in 0.00075s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>例外系の機能を追加してテストもパスしたのでコミットします。</p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -1363,7 +1458,7 @@ Finished in 0.00075s
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1395,6 +1490,9 @@ Finished in 0.00075s
 </div>
 <div class="sect3">
 <h4 id="_メソッドのインライン化">2.9.1. メソッドのインライン化</h4>
+<div class="paragraph">
+<p>テストコードが増えてきましたここでテストコードをグルーピングするため <strong>メソッドのインライン化</strong> を適用します。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1465,6 +1563,9 @@ Finished in 0.00075s
   <span class="keyword">end</span>
 <span class="keyword">end</span></code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>テストコードの構造を <strong>TODOリスト</strong> の構造に合わせることで可読性を改善します。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1539,9 +1640,110 @@ Finished in 0.00075s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>実行結果もわかりやすいなりました。
+テストは壊れていないのでコミットします。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
+Started with run options --seed 39340
+
+ユーザーを登録する
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_IDを指定しない場合はエラー                                             PASS (0.00s)
+  test_ユーザー名が３文字未満の場合はエラー                                         PASS (0.00s)
+  test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
+  test_ユーザー名が４文字の場合は登録される                                         PASS (0.00s)
+
+Finished in 0.00217s
+5 tests, 7 assertions, 0 failures, 0 errors, 0 skips</code></pre>
+</div>
+</div>
 </div>
 <div class="sect3">
 <h4 id="_キーワード引数の導入">2.9.2. キーワード引数の導入</h4>
+<div class="paragraph">
+<p>テストコードは読みやすくなりました。続いてプロダクトコードを改善しましょう。
+動的言語であるRubyでは型を明示しないため引数の値がリテラルなのか <strong>値オブジェクト</strong> なのかメソッドの定義だけでは把握できません。
+<strong>キーワード引数の導入</strong> をしてできるだけ引数の型を把握しやすいように <strong>リファクタリング</strong> しましょう。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
+  describe <span class="string"><span class="delimiter">'</span><span class="content">ユーザーを登録する</span><span class="delimiter">'</span></span> <span class="keyword">do</span>
+    <span class="keyword">def</span> <span class="function">setup</span>
+      id = <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>)
+      name = <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
+      <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(id, name)
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.id.value
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
+      e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
+      <span class="keyword">end</span>
+
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名が４文字の場合は登録される</span>
+      user = <span class="constant">User</span>.new(<span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>), <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
+      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_ユーザー名を指定しない場合はエラー</span>
+      assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="constant">UserName</span>.new(<span class="predefined-constant">nil</span>)
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">test_IDを指定しない場合はエラー</span>
+      assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
+        <span class="constant">UserId</span>.new(<span class="predefined-constant">nil</span>)
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="class">UserId</span>
+  attr_reader <span class="symbol">:value</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>(value)
+    raise <span class="keyword">if</span> value.nil?
+
+    <span class="instance-variable">@value</span> = value
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="class">UserName</span>
+  attr_reader <span class="symbol">:value</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>(value)
+    raise <span class="keyword">if</span> value.nil?
+    raise <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span> <span class="keyword">if</span> value.length &lt; <span class="integer">3</span>
+
+    <span class="instance-variable">@value</span> = value
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="class">User</span>
+  attr_reader <span class="symbol">:id</span>, <span class="symbol">:name</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>(id, name)
+    <span class="instance-variable">@id</span> = id
+    <span class="instance-variable">@name</span> = name
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>キーワード引数</strong> を <strong>値オブジェクト</strong> と同じ名称にします。</p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
@@ -1616,31 +1818,22 @@ Finished in 0.00075s
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/hello_test.rb
-Started with run options --seed 43869
-
-ユーザーを登録する
-  test_IDを指定しない場合はエラー                                             PASS (0.00s)
-  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
-  test_ユーザー名が３文字未満の場合はエラー                                         PASS (0.00s)
-  test_ユーザー名が４文字の場合は登録される                                         PASS (0.00s)
-  test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
-
-Finished in 0.00096s</code></pre>
-</div>
+<div class="paragraph">
+<p>テストを修正してグリーンになったらコミットします。</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_モジュール分割">2.10. モジュール分割</h3>
+<div class="paragraph">
+<p><strong>TODOリスト</strong> を全部片付けたのでここで単一ファイルから書くクラスモジュールごとに <strong>モジュール分割</strong> を実施して完了しましょう。</p>
+</div>
 <div class="sect3">
 <h4 id="_todoリスト_2">2.10.1. TODOリスト</h4>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p>&#10063; ユーザーを管理できるようにしたい</p>
+<p>&#10063; ユーザーを管理できるようにする</p>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>

@@ -5,26 +5,33 @@
 
 === ユーザーストーリー
 
+まず *ユーザーストーリー* をもとに仕様を整理します。
+
 [quote, Martin Fowler's Bliki (ja), 'https://bliki-ja.github.io/UserStory']
 ____
 ユーザーストーリーとは、ソフトウェアシステムに求められるふるまいをまとめたものだ。 アジャイルソフトウェア開発の世界で広く使われており、大量の機能を細かく分解して計画作りに生かせるようにしている。 同じような概念を表す用語としてフィーチャーという言い方もあるが、 最近のアジャイル界隈では「ストーリー」とか「ユーザーストーリー」とかいう用語のほうが広まっている。
 ____
 
+SNS(ソーシャルネットワークサービス)のユーザー機能ということなので以下の *ユーザーストーリー* を作成しました。
 
-  管理者として
+  利用者として
   ユーザーを管理できるようにしたい
-  なぜならSNSサービスを構成する要素だから
-
+  なぜならユーザーはシステムを利用するために必要だから
 
 === TODOリスト
 
-* [ ] ユーザーを管理できるようにしたい
+*ユーザーストーリー* を作成したらそれをもとに *TODOリスト* を作成します。
+*TODOリスト* はプログラムとして実行できる粒度で具体的に記述します。
+
+* [ ] ユーザーを管理できるようにする
 ** [ ] ユーザーを登録する
 *** [ ] IDと名前を持ったユーザーを作成する
 
 === 仮実装
 
 ==== ユーザーを登録する
+
+さっそく *TODOリスト* の１つ目を片付けましょう。まずは *テストファースト* で最初に失敗するコードを書きます。
 
 [source, ruby]
 ----
@@ -39,6 +46,8 @@ def greeting
 end
 ----
 
+サンプルコードを以下のコードに書き換えてテストを実行します。
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -49,6 +58,8 @@ class UserTest < Minitest::Test
   end
 end
 ----
+
+テストは失敗しました。 `NameError: uninitialized constant UserTest::User` クラスが定義されていないからですね。
 
 [source, bash]
 ----
@@ -64,6 +75,9 @@ Minitest::UnexpectedError:         NameError: uninitialized constant UserTest::U
 Finished in 0.00135s
 1 tests, 0 assertions, 0 failures, 1 errors, 0 skips
 ----
+
+テストをパスさせるためにUserクラスを追加します。
+まずはテストをパスさせるために *仮実装* でベタ書きのコードで実装します。
 
 [source, ruby]
 ----
@@ -85,6 +99,8 @@ class User
 end
 ----
 
+テストをパスさせてレッドからグリーンになりました。
+
 [source, bash]
 ----
 $ ruby test/hello_test.rb
@@ -101,6 +117,8 @@ Finished in 0.00072s
 
 ==== ユーザーを登録する
 
+*仮実装* のままでは別のユーザーを作ることが出来ないので、コンストラクタ経由で作成できるようにします。
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -120,6 +138,8 @@ class User
   end
 end
 ----
+
+テストが通りました。
 
 [source, bash]
 ----
@@ -133,6 +153,9 @@ Finished in 0.00089s
 1 tests, 2 assertions, 0 failures, 0 errors, 0 skips
 ----
 
+*仮実装から実装へ* を経て一つ目の *TODOリスト* を片付けたのでここでバージョン管理システムを使ってコミットしておきます。
+以下、 *TODOリスト* を片付けるたびにコミットしていきます。
+
 [source, bash]
 ----
 $ git add .
@@ -141,11 +164,15 @@ $ git commit -m 'test: ユーザーを登録する'
 
 === リファクタリング
 
-* [ ] ユーザーを管理できるようにしたい
+* [ ] ユーザーを管理できるようにする
 ** [ ] ユーザーを登録する
 *** [x] IDと名前を持ったユーザーを作成する
 
+レッド・グリーンときたので続いて *リファクタリング* を実施します。
+
 ==== メソッドの抽出
+
+本来はコードの重複が発生してからやるのですが *メソッドの抽出* を適用してフィクスチャーを抽出しておきます。
 
 [source, ruby]
 ----
@@ -157,6 +184,8 @@ class UserTest < Minitest::Test
   end
 end
 ----
+
+Rubyのテスティングフレームワークminitestではフィクスチャーはsetupメソッドです。
 
 [source, ruby]
 ----
@@ -172,14 +201,20 @@ class UserTest < Minitest::Test
 end
 ----
 
+テストが壊れていないことを確認したらコミットします。
+
 === 明白な実装
 
-==== ユーザーを登録する
+続いて *TODOリスト* を追加します。
 
-* [ ] ユーザーを管理できるようにしたい
+* [ ] ユーザーを管理できるようにする
 ** [ ] ユーザーを登録する
 *** [x] IDと名前を持ったユーザーを作成する
 *** [ ] ユーザー名が３文字未満の場合はエラー
+
+==== ユーザーを登録する
+
+追加した *TODOリスト* に取り掛かります。
 
 [source, ruby]
 ----
@@ -203,6 +238,8 @@ class User
   end
 end
 ----
+
+まず、失敗するテストを書いて *明白な実装* でテストをパスするようにします。
 
 [source, ruby]
 ----
@@ -237,14 +274,18 @@ class User
 end
 ----
 
+レッドからグリーンになったことを確認したらコミットします。
+
 === リファクタリング
 
-* [ ] ユーザーを管理できるようにしたい
+* [ ] ユーザーを管理できるようにする
 ** [ ] ユーザーを登録する
 *** [x] IDと名前を持ったユーザーを作成する
 *** [x] ユーザー名が３文字未満の場合はエラー
 
 ==== クラスの抽出
+
+*クラスの抽出* を適用して Userクラスから *値オブジェクト* を抽出する *リファクタリング* を適用します。
 
 [source, ruby]
 ----
@@ -278,6 +319,8 @@ class User
   end
 end
 ----
+
+まずはUserIdクラスを抽出します。テストコードをUserIdクラスを使って呼び出すように変更したらエラーを修正してグリーンの状態を維持します。
 
 [source, ruby]
 ----
@@ -321,6 +364,8 @@ class User
 end
 ----
 
+続いてUserNameクラスを抽出します。テストコードも同様に変更します。
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -371,6 +416,8 @@ class User
   end
 end
 ----
+
+テストコードを修正してグリーンになったらコミットして *クラスの抽出* の *リファクタリング* 完了です。
 
 [source, bash]
 ----
@@ -387,6 +434,9 @@ Finished in 0.00071s
 
 ==== setメソッドの削除
 
+*クラスの抽出* により *値オブジェクト* を抽出することは出来ましたがインスタンスの値が変更可能な状態です。
+*setメソッドの削除* を適用して *値オブジェクト* の要求を満たす不変オブジェクトに *リファクタリング* しましょう。
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -438,6 +488,8 @@ class User
 end
 ----
 
+アックセッサメソッドを読み取り専用に変更します。
+
 [source, ruby]
 ----
 class UserTest < Minitest::Test
@@ -488,6 +540,8 @@ class User
   end
 end
 ----
+
+テストが壊れていないことを確認したらコミットします。
 
 [source, bash]
 ----
@@ -504,15 +558,20 @@ Finished in 0.00075s
 
 === 例外ケース
 
-==== ユーザーを登録する
+正常系の実装が出来たので続いて例外系の実装に入りたいと思います。
+まず *TODOリスト* を追加します。
 
-* [ ] ユーザーを管理できるようにしたい
+* [ ] ユーザーを管理できるようにする
 ** [ ] ユーザーを登録する
 *** [x] IDと名前を持ったユーザーを作成する
 *** [x] ユーザー名が３文字未満の場合はエラー
 *** [ ] ユーザー名が４文字の場合は登録される
 *** [ ] ユーザー名を指定しない場合はエラー
 *** [ ] IDを指定しない場合はエラー
+
+==== ユーザーを登録する
+
+追加した *TODOリスト* をテストを壊さないように１つづつ片付けて行くとしましょう。
 
 [source, ruby]
 ----
@@ -564,6 +623,8 @@ class User
   end
 end
 ----
+
+実装後のコードです。実際は１つテストコードを追加したらプロダクトコードを実装してレッド・グリーンのサイクルを回しています。
 
 [source, ruby]
 ----
@@ -636,9 +697,11 @@ class User
 end
 ----
 
+例外系の機能を追加してテストもパスしたのでコミットします。
+
 === リファクタリング
 
-* [ ] ユーザーを管理できるようにしたい
+* [ ] ユーザーを管理できるようにする
 ** [x] ユーザーを登録する
 *** [x] IDと名前を持ったユーザーを作成する
 *** [x] ユーザー名が３文字未満の場合はエラー
@@ -647,6 +710,8 @@ end
 *** [x] IDを指定しない場合はエラー
 
 ==== メソッドのインライン化
+
+テストコードが増えてきましたここでテストコードをグルーピングするため *メソッドのインライン化* を適用します。
 
 [source, ruby]
 ----
@@ -718,6 +783,8 @@ class User
   end
 end
 ----
+
+テストコードの構造を *TODOリスト* の構造に合わせることで可読性を改善します。
 
 [source, ruby]
 ----
@@ -792,7 +859,105 @@ class User
 end
 ----
 
+実行結果もわかりやすいなりました。
+テストは壊れていないのでコミットします。
+
+[source, bash]
+----
+$ ruby test/hello_test.rb
+Started with run options --seed 39340
+
+ユーザーを登録する
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+  test_IDを指定しない場合はエラー                                             PASS (0.00s)
+  test_ユーザー名が３文字未満の場合はエラー                                         PASS (0.00s)
+  test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
+  test_ユーザー名が４文字の場合は登録される                                         PASS (0.00s)
+
+Finished in 0.00217s
+5 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+----
+
 ==== キーワード引数の導入
+
+テストコードは読みやすくなりました。続いてプロダクトコードを改善しましょう。
+動的言語であるRubyでは型を明示しないため引数の値がリテラルなのか *値オブジェクト* なのかメソッドの定義だけでは把握できません。
+*キーワード引数の導入* をしてできるだけ引数の型を把握しやすいように *リファクタリング* しましょう。
+
+[source, ruby]
+----
+class UserTest < Minitest::Test
+  describe 'ユーザーを登録する' do
+    def setup
+      id = UserId.new('1')
+      name = UserName.new('Bob')
+      @user = User.new(id, name)
+    end
+
+    def test_IDと名前を持ったユーザーを作成する
+      assert_equal '1', @user.id.value
+      assert_equal 'Bob', @user.name.value
+    end
+
+    def test_ユーザー名が３文字未満の場合はエラー
+      e = assert_raises RuntimeError do
+        UserName.new('a')
+      end
+
+      assert_equal 'ユーザー名は3文字以上です。', e.message
+    end
+
+    def test_ユーザー名が４文字の場合は登録される
+      user = User.new(UserId.new('1'), UserName.new('abcd'))
+      assert_equal 'abcd', user.name.value
+    end
+
+    def test_ユーザー名を指定しない場合はエラー
+      assert_raises RuntimeError do
+        UserName.new(nil)
+      end
+    end
+
+    def test_IDを指定しない場合はエラー
+      assert_raises RuntimeError do
+        UserId.new(nil)
+      end
+    end
+  end
+end
+
+class UserId
+  attr_reader :value
+
+  def initialize(value)
+    raise if value.nil?
+
+    @value = value
+  end
+end
+
+class UserName
+  attr_reader :value
+
+  def initialize(value)
+    raise if value.nil?
+    raise 'ユーザー名は3文字以上です。' if value.length < 3
+
+    @value = value
+  end
+end
+
+class User
+  attr_reader :id, :name
+
+  def initialize(id, name)
+    @id = id
+    @name = name
+  end
+end
+----
+
+*キーワード引数* を *値オブジェクト* と同じ名称にします。
 
 [source, ruby]
 ----
@@ -868,26 +1033,15 @@ class User
 end
 ----
 
-[source, bash]
-----
-$ ruby test/hello_test.rb 
-Started with run options --seed 43869
-
-ユーザーを登録する
-  test_IDを指定しない場合はエラー                                             PASS (0.00s)
-  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
-  test_ユーザー名が３文字未満の場合はエラー                                         PASS (0.00s)
-  test_ユーザー名が４文字の場合は登録される                                         PASS (0.00s)
-  test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
-
-Finished in 0.00096s
-----
+テストを修正してグリーンになったらコミットします。
 
 === モジュール分割
 
+*TODOリスト* を全部片付けたのでここで単一ファイルから書くクラスモジュールごとに *モジュール分割* を実施して完了しましょう。
+
 ==== TODOリスト
 
-* [ ] ユーザーを管理できるようにしたい
+* [ ] ユーザーを管理できるようにする
 ** [x] ユーザーを登録する
 *** [x] IDと名前を持ったユーザーを作成する
 *** [x] ユーザー名が３文字未満の場合はエラー
