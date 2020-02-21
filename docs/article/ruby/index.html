@@ -774,6 +774,27 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </div>
 <div class="sect2">
 <h3 id="_リファクタリング">2.5. リファクタリング</h3>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10063; ユーザーを管理できるようにしたい</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10063; ユーザーを登録する</p>
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p>&#10003; IDと名前を持ったユーザーを作成する</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 <div class="sect3">
 <h4 id="_メソッドの抽出">2.5.1. メソッドの抽出</h4>
 <div class="listingblock">
@@ -1797,7 +1818,36 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 </div>
 <div class="sect2">
 <h3 id="_ふりかえり">2.11. ふりかえり</h3>
-
+<div class="paragraph">
+<p><strong>ユーザーストーリー</strong> から <strong>TODOリスト</strong> を作成する</p>
+</div>
+<div class="paragraph">
+<p><strong>TODOリスト</strong> の１つめを <strong>仮実装</strong> でまずテストをパスさせる</p>
+</div>
+<div class="paragraph">
+<p>テストをパスしたら <strong>仮実装から実装へ</strong> を経て最初の <strong>TODOリスト</strong> を完了した</p>
+</div>
+<div class="paragraph">
+<p>次の <strong>TODOリスト</strong> を追加する前にテストコードの <strong>リファクタリング</strong> を実施した</p>
+</div>
+<div class="paragraph">
+<p><strong>リファクタリング</strong> を実施してテストが壊れていないことを確認したら <strong>TODOリスト</strong> を追加して次の作業に入った</p>
+</div>
+<div class="paragraph">
+<p>追加した <strong>TODOリスト</strong> を <strong>明白な実装</strong> で片付けた</p>
+</div>
+<div class="paragraph">
+<p>再びテストがレッドからグリーンになったので <strong>リファクタリング</strong> を実施した</p>
+</div>
+<div class="paragraph">
+<p><strong>リファクタリング</strong> を実施してテストが壊れていないことを確認したら 次は例外ケースの <strong>TODOリスト</strong> を追加した</p>
+</div>
+<div class="paragraph">
+<p>例外ケースを <strong>明白な実装</strong> で片付けたら <strong>リファクタリング</strong> を実施してテストコードの可読性を向上し、 <strong>値オブジェクト</strong> にした</p>
+</div>
+<div class="paragraph">
+<p>仕上げに <strong>モジュール分割</strong> を実施して最初のリリースを完了した</p>
+</div>
 </div>
 </div>
 </div>
