@@ -1247,7 +1247,7 @@ Coverage report generated for Unit Tests to /Users/k2works/Projects/sandbox/tdd_
 
 テストカバレッジは100%です。
 
-image::http://asciidoctor.org/images/octocat.jpg[]
+image::images/20200222.png[]
 
 === ふりかえり
 
