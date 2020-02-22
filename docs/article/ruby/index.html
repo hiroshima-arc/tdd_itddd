@@ -571,7 +571,13 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_ファイル構成">2.10.3. ファイル構成</a></li>
 </ul>
 </li>
-<li><a href="#_ふりかえり">2.11. ふりかえり</a></li>
+<li><a href="#_リリース">2.11. リリース</a>
+<ul class="sectlevel3">
+<li><a href="#_静的コード解析">2.11.1. 静的コード解析</a></li>
+<li><a href="#_コードカバレッジ">2.11.2. コードカバレッジ</a></li>
+</ul>
+</li>
+<li><a href="#_ふりかえり">2.12. ふりかえり</a></li>
 </ul>
 </li>
 <li><a href="#_エンティティ">3. エンティティ</a></li>
@@ -2010,7 +2016,151 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ふりかえり">2.11. ふりかえり</h3>
+<h3 id="_リリース">2.11. リリース</h3>
+<div class="paragraph">
+<p><strong>モジュール分割</strong> により最初のリリースの準備が出来ました。リリース前に <strong>静的コード解析</strong> と <strong>コードカバレッジ</strong> を実施してコードの品質を確認しておきましょう。手順の詳細は <a href="https://qiita.com/k2works/items/385dc16333e065d69bd6" target="_blank" rel="noopener">こちらの記事</a> をご参照ください。</p>
+</div>
+<div class="sect3">
+<h4 id="_静的コード解析">2.11.1. 静的コード解析</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ rubocop
+Inspecting 5 files
+....C
+
+Offenses:
+
+test/user_test.rb:11:3: C: Metrics/BlockLength: Block has too many lines. [30/25]
+  describe 'ユーザーを登録する' do ...
+  ^^^^^^^^^^^^^^^^^^^^^^^
+test/user_test.rb:18:9: C: Naming/MethodName: Use snake_case for method names.
+    def test_IDと名前を持ったユーザーを作成する
+        ^^^^^^^^^^^^^^^^^^^^^^^
+test/user_test.rb:18:16: C: Naming/AsciiIdentifiers: Use only ascii symbols in identifiers.
+    def test_IDと名前を持ったユーザーを作成する
+               ^^^^^^^^^^^^^^^^
+test/user_test.rb:23:9: C: Naming/MethodName: Use snake_case for method names.
+    def test_ユーザー名が３文字未満の場合はエラー
+        ^^^^^^^^^^^^^^^^^^^^^^^
+test/user_test.rb:23:14: C: Naming/AsciiIdentifiers: Use only ascii symbols in identifiers.
+    def test_ユーザー名が３文字未満の場合はエラー
+             ^^^^^^^^^^^^^^^^^^
+test/user_test.rb:31:9: C: Naming/MethodName: Use snake_case for method names.
+    def test_ユーザー名が４文字の場合は登録される
+        ^^^^^^^^^^^^^^^^^^^^^^^
+test/user_test.rb:31:14: C: Naming/AsciiIdentifiers: Use only ascii symbols in identifiers.
+    def test_ユーザー名が４文字の場合は登録される
+             ^^^^^^^^^^^^^^^^^^
+test/user_test.rb:37:9: C: Naming/MethodName: Use snake_case for method names.
+    def test_ユーザー名を指定しない場合はエラー
+        ^^^^^^^^^^^^^^^^^^^^^^
+test/user_test.rb:37:14: C: Naming/AsciiIdentifiers: Use only ascii symbols in identifiers.
+    def test_ユーザー名を指定しない場合はエラー
+             ^^^^^^^^^^^^^^^^^
+test/user_test.rb:43:9: C: Naming/MethodName: Use snake_case for method names.
+    def test_IDを指定しない場合はエラー
+        ^^^^^^^^^^^^^^^^^^^
+test/user_test.rb:43:16: C: Naming/AsciiIdentifiers: Use only ascii symbols in identifiers.
+    def test_IDを指定しない場合はエラー
+               ^^^^^^^^^^^^
+
+5 files inspected, 11 offenses detected</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>いくつか警告が表示されていますがテストコードの日本語に関する内容なのでチェック対象から除外することにします。 <code>.rubocop.yml</code> ファイルを以下に更新します。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="yml"><span class="key">inherit_from</span>: <span class="string"><span class="content">.rubocop_todo.yml</span></span>
+
+<span class="key">AllCops</span>:
+    <span class="key">Include</span>:
+      - <span class="string"><span class="content">'lib/**/*.rb'</span></span>
+      - <span class="string"><span class="content">'test/**/*_test.rb'</span></span>
+    <span class="key">Exclude</span>:
+      - <span class="string"><span class="content">'docs'</span></span>
+
+<span class="key">Style/AsciiComments</span>:
+  <span class="key">Enabled</span>: <span class="string"><span class="content">false</span></span>
+
+<span class="key">Naming/MethodName</span>:
+  <span class="key">Exclude</span>:
+    - <span class="string"><span class="content">'test/**'</span></span>
+
+<span class="key">Naming/AsciiIdentifiers</span>:
+  <span class="key">Exclude</span>:
+    - <span class="string"><span class="content">'test/**'</span></span>
+
+<span class="key">Metrics/BlockLength</span>:
+  <span class="key">Exclude</span>:
+    - <span class="string"><span class="content">'test/**'</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>警告は無くなりました。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ rubocop
+Inspecting 5 files
+.....
+
+5 files inspected, no offenses detected</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_コードカバレッジ">2.11.2. コードカバレッジ</h4>
+<div class="paragraph">
+<p>まず、テストコードからコードカバレッジを実行できるようにします。 <code>user_test.rb</code> の先頭を以下に更新します。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="comment"># frozen_string_literal: true</span>
+
+require <span class="string"><span class="delimiter">'</span><span class="content">simplecov</span><span class="delimiter">'</span></span>
+<span class="constant">SimpleCov</span>.start
+require <span class="string"><span class="delimiter">'</span><span class="content">minitest/reporters</span><span class="delimiter">'</span></span>
+<span class="constant">Minitest</span>::<span class="constant">Reporters</span>.use! [<span class="constant">Minitest</span>::<span class="constant">Reporters</span>::<span class="constant">SpecReporter</span>.new(<span class="key">color</span>: <span class="predefined-constant">true</span>)]
+require <span class="string"><span class="delimiter">'</span><span class="content">minitest/autorun</span><span class="delimiter">'</span></span>
+require <span class="string"><span class="delimiter">'</span><span class="content">./lib/sns.rb</span><span class="delimiter">'</span></span>
+
+...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>テストを実行します。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">$ ruby test/user_test.rb
+Started with run options --seed 24571
+
+ユーザーを登録する
+  test_IDを指定しない場合はエラー                                             PASS (0.00s)
+  test_ユーザー名が４文字の場合は登録される                                         PASS (0.00s)
+  test_ユーザー名を指定しない場合はエラー                                          PASS (0.00s)
+  test_ユーザー名が３文字未満の場合はエラー                                         PASS (0.00s)
+  test_IDと名前を持ったユーザーを作成する                                         PASS (0.00s)
+
+Finished in 0.00106s
+5 tests, 7 assertions, 0 failures, 0 errors, 0 skips
+Coverage report generated for Unit Tests to /Users/k2works/Projects/sandbox/tdd_itddd/coverage. 19 / 19 LOC (100.0%) covered.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>テストカバレッジは100%です。</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="http://asciidoctor.org/images/octocat.jpg" alt="octocat">
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_ふりかえり">2.12. ふりかえり</h3>
 <div class="paragraph">
 <p>最初のリリースが完了したのでここでふりかえりを実施したいと思います。</p>
 </div>
@@ -2029,8 +2179,10 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 <strong>リファクタリング</strong> を実施してテストが壊れていないことを確認したら 次は例外ケースの <strong>TODOリスト</strong> を追加しました。</p>
 </div>
 <div class="paragraph">
-<p>追加した例外ケースを <strong>明白な実装</strong> で片付けたら、まずテストコードに <strong>メソッドのインライン化</strong> を適用して プロダクトコードに <strong>キーワード引数の導入</strong> を適用してコードの可読性を改善する <strong>リファクタリング</strong> を実施しました。<br>
-仕上げに <strong>モジュール分割</strong> を実施して最初のリリースを完了しました。</p>
+<p>追加した例外ケースを <strong>明白な実装</strong> で片付けたら、まずテストコードに <strong>メソッドのインライン化</strong> を適用して プロダクトコードに <strong>キーワード引数の導入</strong> を適用してコードの可読性を改善する <strong>リファクタリング</strong> を実施しました。</p>
+</div>
+<div class="paragraph">
+<p>仕上げに <strong>モジュール分割</strong> を実施して <strong>静的コード</strong> と <strong>コードカバレッジ</strong> を実施してコードの品質を確認して、最初のリリースを完了しました。</p>
 </div>
 <div class="paragraph">
 <p>今回のテーマである <strong>値オブジェクト</strong> は書籍『テスト駆動開発』では第１部 他国通貨の中でMoneyクラスとして実装されていますし <strong>Value Objectパターン</strong> として紹介されています。</p>
