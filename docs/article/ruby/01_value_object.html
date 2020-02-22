@@ -5,7 +5,7 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.6.1">
-<title>テスト駆動開発からはじめるドメイン駆動設計入門</title>
+<title>ユーザーストーリー</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | http://asciidoctor.org */
@@ -518,102 +518,68 @@ table.CodeRay td.code>pre{padding:0}
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>テスト駆動開発からはじめるドメイン駆動設計入門</h1>
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_はじめに">1. はじめに</a></li>
-<li><a href="#_値オブジェクト">2. 値オブジェクト</a>
 <ul class="sectlevel2">
-<li><a href="#_ユーザーストーリー">2.1. ユーザーストーリー</a></li>
-<li><a href="#_todoリスト">2.2. TODOリスト</a></li>
-<li><a href="#_仮実装">2.3. 仮実装</a>
+<li><a href="#_ユーザーストーリー">1. ユーザーストーリー</a></li>
+<li><a href="#_todoリスト">2. TODOリスト</a></li>
+<li><a href="#_仮実装">3. 仮実装</a>
 <ul class="sectlevel3">
-<li><a href="#_ユーザーを登録する">2.3.1. ユーザーを登録する</a></li>
+<li><a href="#_ユーザーを登録する">3.1. ユーザーを登録する</a></li>
 </ul>
 </li>
-<li><a href="#_仮実装から実装へ">2.4. 仮実装から実装へ</a>
+<li><a href="#_仮実装から実装へ">4. 仮実装から実装へ</a>
 <ul class="sectlevel3">
-<li><a href="#_ユーザーを登録する_2">2.4.1. ユーザーを登録する</a></li>
+<li><a href="#_ユーザーを登録する_2">4.1. ユーザーを登録する</a></li>
 </ul>
 </li>
-<li><a href="#_リファクタリング">2.5. リファクタリング</a>
+<li><a href="#_リファクタリング">5. リファクタリング</a>
 <ul class="sectlevel3">
-<li><a href="#_メソッドの抽出">2.5.1. メソッドの抽出</a></li>
+<li><a href="#_メソッドの抽出">5.1. メソッドの抽出</a></li>
 </ul>
 </li>
-<li><a href="#_明白な実装">2.6. 明白な実装</a>
+<li><a href="#_明白な実装">6. 明白な実装</a>
 <ul class="sectlevel3">
-<li><a href="#_ユーザーを登録する_3">2.6.1. ユーザーを登録する</a></li>
+<li><a href="#_ユーザーを登録する_3">6.1. ユーザーを登録する</a></li>
 </ul>
 </li>
-<li><a href="#_リファクタリング_2">2.7. リファクタリング</a>
+<li><a href="#_リファクタリング_2">7. リファクタリング</a>
 <ul class="sectlevel3">
-<li><a href="#_クラスの抽出">2.7.1. クラスの抽出</a></li>
-<li><a href="#_setメソッドの削除">2.7.2. setメソッドの削除</a></li>
+<li><a href="#_クラスの抽出">7.1. クラスの抽出</a></li>
+<li><a href="#_setメソッドの削除">7.2. setメソッドの削除</a></li>
 </ul>
 </li>
-<li><a href="#_例外ケース">2.8. 例外ケース</a>
+<li><a href="#_例外ケース">8. 例外ケース</a>
 <ul class="sectlevel3">
-<li><a href="#_ユーザーを登録する_4">2.8.1. ユーザーを登録する</a></li>
+<li><a href="#_ユーザーを登録する_4">8.1. ユーザーを登録する</a></li>
 </ul>
 </li>
-<li><a href="#_リファクタリング_3">2.9. リファクタリング</a>
+<li><a href="#_リファクタリング_3">9. リファクタリング</a>
 <ul class="sectlevel3">
-<li><a href="#_メソッドのインライン化">2.9.1. メソッドのインライン化</a></li>
-<li><a href="#_キーワード引数の導入">2.9.2. キーワード引数の導入</a></li>
+<li><a href="#_メソッドのインライン化">9.1. メソッドのインライン化</a></li>
+<li><a href="#_キーワード引数の導入">9.2. キーワード引数の導入</a></li>
 </ul>
 </li>
-<li><a href="#_モジュール分割">2.10. モジュール分割</a>
+<li><a href="#_モジュール分割">10. モジュール分割</a>
 <ul class="sectlevel3">
-<li><a href="#_todoリスト_2">2.10.1. TODOリスト</a></li>
-<li><a href="#_クラス図">2.10.2. クラス図</a></li>
-<li><a href="#_ファイル構成">2.10.3. ファイル構成</a></li>
+<li><a href="#_todoリスト_2">10.1. TODOリスト</a></li>
+<li><a href="#_クラス図">10.2. クラス図</a></li>
+<li><a href="#_ファイル構成">10.3. ファイル構成</a></li>
 </ul>
 </li>
-<li><a href="#_リリース">2.11. リリース</a>
+<li><a href="#_リリース">11. リリース</a>
 <ul class="sectlevel3">
-<li><a href="#_静的コード解析">2.11.1. 静的コード解析</a></li>
-<li><a href="#_コードカバレッジ">2.11.2. コードカバレッジ</a></li>
+<li><a href="#_静的コード解析">11.1. 静的コード解析</a></li>
+<li><a href="#_コードカバレッジ">11.2. コードカバレッジ</a></li>
 </ul>
 </li>
-<li><a href="#_ふりかえり">2.12. ふりかえり</a></li>
-</ul>
-</li>
-<li><a href="#_エンティティ">3. エンティティ</a></li>
-<li><a href="#_ドメインサービス">4. ドメインサービス</a></li>
-<li><a href="#_リポジトリ">5. リポジトリ</a></li>
-<li><a href="#_アプリケーションサービス">6. アプリケーションサービス</a></li>
-<li><a href="#_依存関係のコントロール">7. 依存関係のコントロール</a></li>
-<li><a href="#_ソフトウェアシステムを組み立てる">8. ソフトウェアシステムを組み立てる</a></li>
-<li><a href="#_ファクトリ">9. ファクトリ</a></li>
-<li><a href="#_データの整合性">10. データの整合性</a></li>
-<li><a href="#_アプリケーションを1から組み立てる">11. アプリケーションを1から組み立てる</a></li>
-<li><a href="#_集約">12. 集約</a></li>
-<li><a href="#_仕様">13. 仕様</a></li>
-<li><a href="#_アーキテクチャ">14. アーキテクチャ</a></li>
-<li><a href="#_参照">15. 参照</a>
-<ul class="sectlevel2">
-<li><a href="#_参考サイト">15.1. 参考サイト</a></li>
-<li><a href="#_参考図書">15.2. 参考図書</a></li>
-</ul>
-</li>
-<li><a href="#_references">References</a></li>
+<li><a href="#_ふりかえり">12. ふりかえり</a></li>
 </ul>
 </div>
 </div>
 <div id="content">
-<div class="sect1">
-<h2 id="_はじめに">1. はじめに</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_値オブジェクト">2. 値オブジェクト</h2>
-<div class="sectionbody">
 <div class="sect2">
-<h3 id="_ユーザーストーリー">2.1. ユーザーストーリー</h3>
+<h3 id="_ユーザーストーリー">1. ユーザーストーリー</h3>
 <div class="paragraph">
 <p>まず <strong>ユーザーストーリー</strong> をもとに仕様を整理します。</p>
 </div>
@@ -640,7 +606,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="_todoリスト">2.2. TODOリスト</h3>
+<h3 id="_todoリスト">2. TODOリスト</h3>
 <div class="paragraph">
 <p><strong>ユーザーストーリー</strong> を作成したらそれをもとに <strong>TODOリスト</strong> を作成します。<br>
 <strong>TODOリスト</strong> はプログラムとして実行できる粒度で具体的に記述します。</p>
@@ -668,9 +634,9 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect2">
-<h3 id="_仮実装">2.3. 仮実装</h3>
+<h3 id="_仮実装">3. 仮実装</h3>
 <div class="sect3">
-<h4 id="_ユーザーを登録する">2.3.1. ユーザーを登録する</h4>
+<h4 id="_ユーザーを登録する">3.1. ユーザーを登録する</h4>
 <div class="paragraph">
 <p>さっそく <strong>TODOリスト</strong> の１つ目を片付けましょう。<br>
 まずは <strong>テストファースト</strong> で最初に失敗するコードを書きます。</p>
@@ -762,9 +728,9 @@ Finished in 0.00072s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_仮実装から実装へ">2.4. 仮実装から実装へ</h3>
+<h3 id="_仮実装から実装へ">4. 仮実装から実装へ</h3>
 <div class="sect3">
-<h4 id="_ユーザーを登録する_2">2.4.1. ユーザーを登録する</h4>
+<h4 id="_ユーザーを登録する_2">4.1. ユーザーを登録する</h4>
 <div class="paragraph">
 <p>テストは通りましたがコードはベタ書きのままです。</p>
 </div>
@@ -841,7 +807,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_リファクタリング">2.5. リファクタリング</h3>
+<h3 id="_リファクタリング">5. リファクタリング</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -867,7 +833,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <p>レッド・グリーンときたので続いて <strong>リファクタリング</strong> を実施します。</p>
 </div>
 <div class="sect3">
-<h4 id="_メソッドの抽出">2.5.1. メソッドの抽出</h4>
+<h4 id="_メソッドの抽出">5.1. メソッドの抽出</h4>
 <div class="paragraph">
 <p>本来はコードの重複が発生してからやるのですが今回は予め <strong>メソッドの抽出</strong> を適用してフィクスチャーを抽出しておきます。</p>
 </div>
@@ -905,7 +871,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_明白な実装">2.6. 明白な実装</h3>
+<h3 id="_明白な実装">6. 明白な実装</h3>
 <div class="paragraph">
 <p>続いて <strong>TODOリスト</strong> を追加します。</p>
 </div>
@@ -934,7 +900,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_ユーザーを登録する_3">2.6.1. ユーザーを登録する</h4>
+<h4 id="_ユーザーを登録する_3">6.1. ユーザーを登録する</h4>
 <div class="paragraph">
 <p>追加した <strong>TODOリスト</strong> に取り掛かります。</p>
 </div>
@@ -1003,7 +969,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_リファクタリング_2">2.7. リファクタリング</h3>
+<h3 id="_リファクタリング_2">7. リファクタリング</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1032,7 +998,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
 <p>レッド・グリーン・リファクタリングです。</p>
 </div>
 <div class="sect3">
-<h4 id="_クラスの抽出">2.7.1. クラスの抽出</h4>
+<h4 id="_クラスの抽出">7.1. クラスの抽出</h4>
 <div class="paragraph">
 <p><strong>クラスの抽出</strong> を適用して Userクラスから <strong>値オブジェクト</strong> を抽出する <strong>リファクタリング</strong> を適用します。</p>
 </div>
@@ -1150,7 +1116,7 @@ Finished in 0.00071s
 </div>
 </div>
 <div class="sect3">
-<h4 id="_setメソッドの削除">2.7.2. setメソッドの削除</h4>
+<h4 id="_setメソッドの削除">7.2. setメソッドの削除</h4>
 <div class="paragraph">
 <p><strong>クラスの抽出</strong> により <strong>値オブジェクト</strong> を抽出することは出来ましたがインスタンスの値が変更可能な状態です。<br>
 <strong>setメソッドの削除</strong> を適用して <strong>値オブジェクト</strong> の要求を満たす不変オブジェクトに <strong>リファクタリング</strong> しましょう。</p>
@@ -1251,7 +1217,7 @@ Finished in 0.00075s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_例外ケース">2.8. 例外ケース</h3>
+<h3 id="_例外ケース">8. 例外ケース</h3>
 <div class="paragraph">
 <p>正常系の実装が出来たので続いて例外系の実装に入りたいと思います。<br>
 まず <strong>TODOリスト</strong> を追加します。</p>
@@ -1290,7 +1256,7 @@ Finished in 0.00075s
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_ユーザーを登録する_4">2.8.1. ユーザーを登録する</h4>
+<h4 id="_ユーザーを登録する_4">8.1. ユーザーを登録する</h4>
 <div class="paragraph">
 <p>追加した <strong>TODOリスト</strong> をテストを壊さないように１つづつ片付けていくとしましょう。</p>
 </div>
@@ -1426,7 +1392,7 @@ Finished in 0.00075s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_リファクタリング_3">2.9. リファクタリング</h3>
+<h3 id="_リファクタリング_3">9. リファクタリング</h3>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1464,7 +1430,7 @@ Finished in 0.00075s
 <p>今回はコードの可読性を改善する観点で <strong>リファクタリング</strong> を実施してみたいと思います。</p>
 </div>
 <div class="sect3">
-<h4 id="_メソッドのインライン化">2.9.1. メソッドのインライン化</h4>
+<h4 id="_メソッドのインライン化">9.1. メソッドのインライン化</h4>
 <div class="paragraph">
 <p>テストコードが増えてきましたここでテストコードをグルーピングするため <strong>メソッドのインライン化</strong> を適用します。</p>
 </div>
@@ -1609,7 +1575,7 @@ Finished in 0.00217s
 </div>
 </div>
 <div class="sect3">
-<h4 id="_キーワード引数の導入">2.9.2. キーワード引数の導入</h4>
+<h4 id="_キーワード引数の導入">9.2. キーワード引数の導入</h4>
 <div class="paragraph">
 <p>テストコードは読みやすくなりました。続いてプロダクトコードを改善しましょう。<br>
 動的言語であるRubyでは型を明示しないため引数の値がリテラルなのか <strong>値オブジェクト</strong> なのかメソッドの定義だけでは把握できません。<strong>キーワード引数の導入</strong> をしてできるだけ引数の型を把握しやすいように <strong>リファクタリング</strong> しましょう。</p>
@@ -1721,12 +1687,12 @@ Finished in 0.00217s
 </div>
 </div>
 <div class="sect2">
-<h3 id="_モジュール分割">2.10. モジュール分割</h3>
+<h3 id="_モジュール分割">10. モジュール分割</h3>
 <div class="paragraph">
 <p><strong>TODOリスト</strong> を全部片付けたのでここで単一ファイルから各クラスモジュールごとに <strong>モジュール分割</strong> を実施します。</p>
 </div>
 <div class="sect3">
-<h4 id="_todoリスト_2">2.10.1. TODOリスト</h4>
+<h4 id="_todoリスト_2">10.1. TODOリスト</h4>
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
@@ -1762,7 +1728,7 @@ Finished in 0.00217s
 </div>
 </div>
 <div class="sect3">
-<h4 id="_クラス図">2.10.2. クラス図</h4>
+<h4 id="_クラス図">10.2. クラス図</h4>
 <div class="imageblock">
 <div class="content">
 <img src="diag-3a0995bbcfccf7896acca758266aea29.png" alt="diag 3a0995bbcfccf7896acca758266aea29" width="352" height="91">
@@ -1770,7 +1736,7 @@ Finished in 0.00217s
 </div>
 </div>
 <div class="sect3">
-<h4 id="_ファイル構成">2.10.3. ファイル構成</h4>
+<h4 id="_ファイル構成">10.3. ファイル構成</h4>
 <div class="literalblock">
 <div class="content">
 <pre>/main.rb
@@ -1907,14 +1873,14 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 </div>
 </div>
 <div class="sect2">
-<h3 id="_リリース">2.11. リリース</h3>
+<h3 id="_リリース">11. リリース</h3>
 <div class="paragraph">
 <p><strong>モジュール分割</strong> により最初のリリースの準備が出来ました。<br>
 リリース前に <strong>静的コード解析</strong> と <strong>コードカバレッジ</strong> を実施してコードの品質を確認しておきましょう。<br>
 手順の詳細は <a href="https://qiita.com/k2works/items/385dc16333e065d69bd6" target="_blank" rel="noopener">こちらの記事</a> をご参照ください。</p>
 </div>
 <div class="sect3">
-<h4 id="_静的コード解析">2.11.1. 静的コード解析</h4>
+<h4 id="_静的コード解析">11.1. 静的コード解析</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">$ rubocop
@@ -2007,7 +1973,7 @@ Inspecting 5 files
 </div>
 </div>
 <div class="sect3">
-<h4 id="_コードカバレッジ">2.11.2. コードカバレッジ</h4>
+<h4 id="_コードカバレッジ">11.2. コードカバレッジ</h4>
 <div class="paragraph">
 <p>まず、テストコードからコードカバレッジを実行できるようにします。</p>
 </div>
@@ -2059,7 +2025,7 @@ Coverage report generated for Unit Tests to /Users/k2works/Projects/sandbox/tdd_
 </div>
 </div>
 <div class="sect2">
-<h3 id="_ふりかえり">2.12. ふりかえり</h3>
+<h3 id="_ふりかえり">12. ふりかえり</h3>
 <div class="paragraph">
 <p>最初のリリースが完了したのでここでやってきたことのふりかえりをしておきましょう。</p>
 </div>
@@ -2127,130 +2093,9 @@ Coverage report generated for Unit Tests to /Users/k2works/Projects/sandbox/tdd_
 </div>
 </div>
 </div>
-</div>
-<div class="sect1">
-<h2 id="_エンティティ">3. エンティティ</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ドメインサービス">4. ドメインサービス</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_リポジトリ">5. リポジトリ</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_アプリケーションサービス">6. アプリケーションサービス</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_依存関係のコントロール">7. 依存関係のコントロール</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ソフトウェアシステムを組み立てる">8. ソフトウェアシステムを組み立てる</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_ファクトリ">9. ファクトリ</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_データの整合性">10. データの整合性</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_アプリケーションを1から組み立てる">11. アプリケーションを1から組み立てる</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_集約">12. 集約</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_仕様">13. 仕様</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_アーキテクチャ">14. アーキテクチャ</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
-<h2 id="_参照">15. 参照</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="_参考サイト">15.1. 参考サイト</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://channel9.msdn.com/Events/de-code/2017/DO03?ocid=player" target="_blank" rel="noopener">50 分でわかるテスト駆動開発</a></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_参考図書">15.2. 参考図書</h3>
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="https://rcm-fe.amazon-adsystem.com/e/cm?ref=qf_sp_asin_til&t=k2works0c-22&m=amazon&o=9&p=8&l=as1&IS1=1&detail=1&asins=4274217884&linkId=568f25b974af5645e862928a12c354e1&bc1=ffffff&lt1=_top&fc1=333333&lc1=0066c0&bg1=ffffff&f=ifr"></iframe>
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="https://rcm-fe.amazon-adsystem.com/e/cm?ref=qf_sp_asin_til&t=k2works0c-22&m=amazon&o=9&p=8&l=as1&IS1=1&detail=1&asins=427405019X&linkId=08e705a5969e20f5129b4d3cefbcdb15&bc1=000000&lt1=_top&fc1=333333&lc1=0066c0&bg1=ffffff&f=ifr"></iframe>
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=k2works0c-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=4274224546&linkId=5f857b58e988073ce92e0adcf1dd3ebb"></iframe>
-<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//rcm-fe.amazon-adsystem.com/e/cm?lt1=_blank&bc1=000000&IS2=1&bg1=FFFFFF&fc1=000000&lc1=0000FF&t=k2works0c-22&language=ja_JP&o=9&p=8&l=as4&m=amazon&f=ifr&ref=as_ss_li_til&asins=479815072X&linkId=7ce522a40e7b96f30b414d57d10c98ee"></iframe>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_references">References</h2>
-<div class="sectionbody">
-<div class="ulist bibliography">
-<ul class="bibliography">
-<li>
-<p><a id="tdd"></a>[1] テスト駆動開発 Kent Beck (著), 和田 卓人 (翻訳):
-オーム社; 新訳版 (2017/10/14)</p>
-</li>
-<li>
-<p><a id="rft"></a>[2] 新装版 リファクタリング―既存のコードを安全に改善する― (OBJECT TECHNOLOGY SERIES) Martin Fowler (著), 児玉 公信 (翻訳), 友野 晶夫 (翻訳), 平澤 章  (翻訳), その他:
-オーム社; 新装版 (2014/7/26)</p>
-</li>
-<li>
-<p><a id="rft2"></a>[3] リファクタリング(第2版): 既存のコードを安全に改善する (OBJECT TECHNOLOGY SERIES) Martin Fowler (著), 児玉 公信 (翻訳), 友野 晶夫 (翻訳), 平澤 章 (翻訳), その他:
-オーム社; 第2版 (2019/12/1)</p>
-</li>
-<li>
-<p><a id="itddd"></a>[4] ドメイン駆動設計入門 ボトムアップでわかる! ドメイン駆動設計の基本 (日本語) 単行本（ソフトカバー） 成瀬 允宣  (著)
-翔泳社 (2020/2/13)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-22 12:44:17 JST
+Last updated 2020-02-22 12:48:26 JST
 </div>
 </div>
 </body>
