@@ -732,6 +732,29 @@ Finished in 0.00072s
 <div class="sect3">
 <h4 id="_ユーザーを登録する_2">4.1. ユーザーを登録する</h4>
 <div class="paragraph">
+<p>テストは通りましたがコードはベタ書きのままです。</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
+  <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
+    user = <span class="constant">User</span>.new
+    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, user.id
+    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, user.name
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="keyword">class</span> <span class="class">User</span>
+  attr_accessor <span class="symbol">:id</span>, <span class="symbol">:name</span>
+
+  <span class="keyword">def</span> <span class="function">initialize</span>
+    <span class="instance-variable">@id</span> = <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>
+    <span class="instance-variable">@name</span> = <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
 <p><strong>仮実装</strong> のままでは別のユーザーを作ることが出来ないので、コンストラクタ経由で作成できるようにします。</p>
 </div>
 <div class="listingblock">
@@ -1027,14 +1050,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.id.value
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name
   <span class="keyword">end</span>
-
-  <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
-    e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">User</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
-    <span class="keyword">end</span>
-
-    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
-  <span class="keyword">end</span>
+...
 <span class="keyword">end</span>
 
 <span class="keyword">class</span> <span class="class">UserId</span>
@@ -1045,16 +1061,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
   <span class="keyword">end</span>
 <span class="keyword">end</span>
 
-<span class="keyword">class</span> <span class="class">User</span>
-  attr_accessor <span class="symbol">:id</span>, <span class="symbol">:name</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(id, name)
-    raise <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span> <span class="keyword">if</span> name.length &lt; <span class="integer">3</span>
-
-    <span class="instance-variable">@id</span> = id
-    <span class="instance-variable">@name</span> = name
-  <span class="keyword">end</span>
-<span class="keyword">end</span></code></pre>
+...</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1073,23 +1080,10 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.id.value
     assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
   <span class="keyword">end</span>
-
-  <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
-    e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
-    <span class="keyword">end</span>
-
-    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
-  <span class="keyword">end</span>
+...
 <span class="keyword">end</span>
 
-<span class="keyword">class</span> <span class="class">UserId</span>
-  attr_accessor <span class="symbol">:value</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
+...
 
 <span class="keyword">class</span> <span class="class">UserName</span>
   attr_accessor <span class="symbol">:value</span>
@@ -1101,14 +1095,7 @@ $ git commit -m 'test: ユーザーを登録する'</code></pre>
   <span class="keyword">end</span>
 <span class="keyword">end</span>
 
-<span class="keyword">class</span> <span class="class">User</span>
-  attr_accessor <span class="symbol">:id</span>, <span class="symbol">:name</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(id, name)
-    <span class="instance-variable">@id</span> = id
-    <span class="instance-variable">@name</span> = name
-  <span class="keyword">end</span>
-<span class="keyword">end</span></code></pre>
+...</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1190,52 +1177,24 @@ Finished in 0.00071s
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="ruby"><span class="keyword">class</span> <span class="class">UserTest</span> &lt; <span class="constant">Minitest</span>::<span class="constant">Test</span>
-  <span class="keyword">def</span> <span class="function">setup</span>
-    id = <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>)
-    name = <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
-    <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(id, name)
-  <span class="keyword">end</span>
-
-  <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
-    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.id.value
-    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
-  <span class="keyword">end</span>
-
-  <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
-    e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-      <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
-    <span class="keyword">end</span>
-
-    assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
+<pre class="CodeRay highlight"><code data-lang="ruby">...
 
 <span class="keyword">class</span> <span class="class">UserId</span>
   attr_reader <span class="symbol">:value</span>
 
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
+...
 <span class="keyword">end</span>
 
 <span class="keyword">class</span> <span class="class">UserName</span>
   attr_reader <span class="symbol">:value</span>
 
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    raise <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span> <span class="keyword">if</span> value.length &lt; <span class="integer">3</span>
-
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
+...
 <span class="keyword">end</span>
 
 <span class="keyword">class</span> <span class="class">User</span>
   attr_reader <span class="symbol">:id</span>, <span class="symbol">:name</span>
 
-  <span class="keyword">def</span> <span class="function">initialize</span>(id, name)
-    <span class="instance-variable">@id</span> = id
-    <span class="instance-variable">@name</span> = name
-  <span class="keyword">end</span>
+...
 <span class="keyword">end</span></code></pre>
 </div>
 </div>
@@ -1467,6 +1426,9 @@ Finished in 0.00075s
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>今回はコードの可読性を改善する観点で <strong>リファクタリング</strong> を実施して見たいと思います。</p>
+</div>
 <div class="sect3">
 <h4 id="_メソッドのインライン化">9.1. メソッドのインライン化</h4>
 <div class="paragraph">
@@ -1588,35 +1550,7 @@ Finished in 0.00075s
   <span class="keyword">end</span>
 <span class="keyword">end</span>
 
-<span class="keyword">class</span> <span class="class">UserId</span>
-  attr_reader <span class="symbol">:value</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    raise <span class="keyword">if</span> value.nil?
-
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
-
-<span class="keyword">class</span> <span class="class">UserName</span>
-  attr_reader <span class="symbol">:value</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    raise <span class="keyword">if</span> value.nil?
-    raise <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span> <span class="keyword">if</span> value.length &lt; <span class="integer">3</span>
-
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
-
-<span class="keyword">class</span> <span class="class">User</span>
-  attr_reader <span class="symbol">:id</span>, <span class="symbol">:name</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(id, name)
-    <span class="instance-variable">@id</span> = id
-    <span class="instance-variable">@name</span> = name
-  <span class="keyword">end</span>
-<span class="keyword">end</span></code></pre>
+...</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1731,60 +1665,10 @@ Finished in 0.00217s
       name = <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>)
       <span class="instance-variable">@user</span> = <span class="constant">User</span>.new(<span class="key">user_id</span>: id, <span class="key">user_name</span>: name)
     <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_IDと名前を持ったユーザーを作成する</span>
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.id.value
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">Bob</span><span class="delimiter">'</span></span>, <span class="instance-variable">@user</span>.name.value
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が３文字未満の場合はエラー</span>
-      e = assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-        <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">a</span><span class="delimiter">'</span></span>)
-      <span class="keyword">end</span>
-
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span>, e.message
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_ユーザー名が４文字の場合は登録される</span>
-      user = <span class="constant">User</span>.new(<span class="key">user_id</span>: <span class="constant">UserId</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">1</span><span class="delimiter">'</span></span>),
-                      <span class="key">user_name</span>: <span class="constant">UserName</span>.new(<span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>))
-      assert_equal <span class="string"><span class="delimiter">'</span><span class="content">abcd</span><span class="delimiter">'</span></span>, user.name.value
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_ユーザー名を指定しない場合はエラー</span>
-      assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-        <span class="constant">UserName</span>.new(<span class="predefined-constant">nil</span>)
-      <span class="keyword">end</span>
-    <span class="keyword">end</span>
-
-    <span class="keyword">def</span> <span class="function">test_IDを指定しない場合はエラー</span>
-      assert_raises <span class="constant">RuntimeError</span> <span class="keyword">do</span>
-        <span class="constant">UserId</span>.new(<span class="predefined-constant">nil</span>)
-      <span class="keyword">end</span>
-    <span class="keyword">end</span>
-  <span class="keyword">end</span>
+...
 <span class="keyword">end</span>
 
-<span class="keyword">class</span> <span class="class">UserId</span>
-  attr_reader <span class="symbol">:value</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    raise <span class="keyword">if</span> value.nil?
-
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
-
-<span class="keyword">class</span> <span class="class">UserName</span>
-  attr_reader <span class="symbol">:value</span>
-
-  <span class="keyword">def</span> <span class="function">initialize</span>(value)
-    raise <span class="keyword">if</span> value.nil?
-    raise <span class="string"><span class="delimiter">'</span><span class="content">ユーザー名は3文字以上です。</span><span class="delimiter">'</span></span> <span class="keyword">if</span> value.length &lt; <span class="integer">3</span>
-
-    <span class="instance-variable">@value</span> = value
-  <span class="keyword">end</span>
-<span class="keyword">end</span>
+...
 
 <span class="keyword">class</span> <span class="class">User</span>
   attr_reader <span class="symbol">:id</span>, <span class="symbol">:name</span>
@@ -1798,7 +1682,8 @@ Finished in 0.00217s
 </div>
 <div class="paragraph">
 <p>テストを修正してグリーンになったらコミットします。<br>
-ちなみに <strong>キーワード引数の導入</strong> という名称はリファクタリングのカタログにはない用語です。Ruby固有のパターンとして便宜上命名しました。</p>
+ちなみに <strong>キーワード引数の導入</strong> という名称はリファクタリングのカタログにはない用語です。<br>
+Ruby固有のパターンとして便宜上命名しています。</p>
 </div>
 </div>
 </div>
@@ -2091,7 +1976,10 @@ Inspecting 5 files
 <div class="sect3">
 <h4 id="_コードカバレッジ">11.2. コードカバレッジ</h4>
 <div class="paragraph">
-<p>まず、テストコードからコードカバレッジを実行できるようにします。 <code>user_test.rb</code> の先頭を以下に更新します。</p>
+<p>まず、テストコードからコードカバレッジを実行できるようにします。</p>
+</div>
+<div class="paragraph">
+<p><code>user_test.rb</code> の先頭を以下に更新します。</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2208,7 +2096,7 @@ Coverage report generated for Unit Tests to /Users/k2works/Projects/sandbox/tdd_
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-22 11:53:07 JST
+Last updated 2020-02-22 12:05:50 JST
 </div>
 </div>
 </body>
