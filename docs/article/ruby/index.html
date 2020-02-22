@@ -2012,34 +2012,66 @@ require <span class="string"><span class="delimiter">'</span><span class="conten
 <div class="sect2">
 <h3 id="_ふりかえり">2.11. ふりかえり</h3>
 <div class="paragraph">
-<p><strong>ユーザーストーリー</strong> から <strong>TODOリスト</strong> を作成する</p>
+<p>最初のリリースが完了したのでここでふりかえりを実施したいと思います。</p>
 </div>
 <div class="paragraph">
-<p><strong>TODOリスト</strong> の１つめを <strong>仮実装</strong> でまずテストをパスさせる</p>
+<p>まず、<strong>ユーザーストーリー</strong> から <strong>TODOリスト</strong> を作成しました。<br>
+<strong>TODOリスト</strong> の１つめを <strong>仮実装</strong> でまずベタ書きのコードを書いてテストをパスするようにしました。<br>
+テストをパスしてグリーンになったら <strong>仮実装から実装へ</strong> を経て最初の <strong>TODOリスト</strong> を完了させました。</p>
 </div>
 <div class="paragraph">
-<p>テストをパスしたら <strong>仮実装から実装へ</strong> を経て最初の <strong>TODOリスト</strong> を完了した</p>
+<p>次の <strong>TODOリスト</strong> を追加する前にテストコードに <strong>メソッドの抽出</strong> を適用して <strong>リファクタリング</strong> を実施しました。<br>
+<strong>リファクタリング</strong> を実施してテストが壊れていないことを確認してから <strong>TODOリスト</strong> を追加して次の作業に入りました。<br>
+次の作業ではまず <strong>TODOリスト</strong> を追加してその内容を <strong>明白な実装</strong> で片付けました。</p>
 </div>
 <div class="paragraph">
-<p>次の <strong>TODOリスト</strong> を追加する前にテストコードの <strong>リファクタリング</strong> を実施した</p>
+<p><strong>明白な実装</strong> により再びテストがレッドからグリーンになったので <strong>クラスの抽出</strong> と <strong>setメソッドの削除</strong> を適用して <strong>リファクタリング</strong> を実施することにより <strong>値オブジェクト</strong> を追加しました。<br>
+<strong>リファクタリング</strong> を実施してテストが壊れていないことを確認したら 次は例外ケースの <strong>TODOリスト</strong> を追加しました。</p>
 </div>
 <div class="paragraph">
-<p><strong>リファクタリング</strong> を実施してテストが壊れていないことを確認したら <strong>TODOリスト</strong> を追加して次の作業に入った</p>
+<p>追加した例外ケースを <strong>明白な実装</strong> で片付けたら、まずテストコードに <strong>メソッドのインライン化</strong> を適用して プロダクトコードに <strong>キーワード引数の導入</strong> を適用してコードの可読性を改善する <strong>リファクタリング</strong> を実施しました。<br>
+仕上げに <strong>モジュール分割</strong> を実施して最初のリリースを完了しました。</p>
 </div>
 <div class="paragraph">
-<p>追加した <strong>TODOリスト</strong> を <strong>明白な実装</strong> で片付けた</p>
+<p>今回のテーマである <strong>値オブジェクト</strong> は書籍『テスト駆動開発』では第１部 他国通貨の中でMoneyクラスとして実装されていますし <strong>Value Objectパターン</strong> として紹介されています。</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>Value Objectパターン</p>
 </div>
 <div class="paragraph">
-<p>再びテストがレッドからグリーンになったので <strong>リファクタリング</strong> を実施した</p>
+<p>広く共有されるものの、同一インスタンスであることはさほど重要でないオブジェクトを設計するにはどうしたらよいだろうか-----オブジェクト作成時に状態を設定したら、その後決して変えないようにする。オブジェクトへの操作は必ず新しいオブジェクトを返すようにしよう。</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; テスト駆動開発
+</div>
 </div>
 <div class="paragraph">
-<p><strong>リファクタリング</strong> を実施してテストが壊れていないことを確認したら 次は例外ケースの <strong>TODOリスト</strong> を追加した</p>
+<p>また、書籍『リファクタリング』では第３章　コードの不吉な臭いの中の『基本データ型への執着』で言及されています。</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<div class="paragraph">
+<p>基本データ型への執着</p>
 </div>
 <div class="paragraph">
-<p>例外ケースを <strong>明白な実装</strong> で片付けたら <strong>リファクタリング</strong> を実施してテストコードの可読性を向上し、 <strong>値オブジェクト</strong> にした</p>
+<p>オブジェクト指向を始めたばかりの人は、小さなオブジェクトを使ってちょっとしたことをさせるのを嫌がる傾向があります。金額と通貨単位を組み合わせたMoney(貨幣)クラス、上限と下限と持つRange(範囲)クラス、電話番号や郵便番号を表すための特殊な文字列クラスなどがこの例に該当します。</p>
+</div>
+</blockquote>
+<div class="attribution">
+&#8212; 新装版 リファクタリング
+</div>
 </div>
 <div class="paragraph">
-<p>仕上げに <strong>モジュール分割</strong> を実施して最初のリリースを完了した</p>
+<p>アプリケーション開発の過程でどのように <strong>値オブジェクト</strong> を適用するかは <a href="https://qiita.com/k2works/items/928d519a7afe99361ff2#%E5%80%A4%E3%82%AA%E3%83%96%E3%82%B8%E3%82%A7%E3%82%AF%E3%83%88" target="_blank" rel="noopener">こちらの記事</a>をご参照ください。</p>
+</div>
+<div class="paragraph">
+<p>今回のリリースでユーザーは登録することは出来ましたがユーザー名を変更することが出来ません。</p>
+</div>
+<div class="paragraph">
+<p>次回は <strong>エンティティ</strong> の実装に取り組んで見たいと思います。</p>
 </div>
 </div>
 </div>
