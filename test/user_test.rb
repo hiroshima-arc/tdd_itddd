@@ -49,4 +49,17 @@ class UserTest < Minitest::Test
       end
     end
   end
+
+  describe 'ユーザーを更新する' do
+    def setup
+      id = UserId.new('1')
+      name = UserName.new('Bob')
+      @user = User.new(user_id: id, user_name: name)
+    end
+
+    def test_ユーザー名を更新する
+      @user.change_name('Alice')
+      assert_equal 'Alice', @user.name
+    end
+  end
 end

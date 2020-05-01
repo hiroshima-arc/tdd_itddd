@@ -8,4 +8,10 @@ class User
     @id = user_id
     @name = user_name
   end
+
+  def change_name(name)
+    raise if name.nil?
+
+    @name = name
+  end
 end
