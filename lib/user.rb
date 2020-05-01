@@ -14,4 +14,8 @@ class User
 
     @name = name
   end
+
+  def eql?(other)
+    @id == other.id
+  end
 end

@@ -62,4 +62,30 @@ class UserTest < Minitest::Test
       assert_equal 'Alice', @user.name
     end
   end
+
+  describe 'ユーザーの同一性を判断する' do
+    def setup
+      id = UserId.new('1')
+      name = UserName.new('Bob')
+      @user = User.new(user_id: id, user_name: name)
+    end
+
+    def test_同じ名前の異なるユーザー
+      id = UserId.new('2')
+      name = UserName.new('Bob')
+      @user2 = User.new(user_id: id, user_name: name)
+
+      refute @user.eql?(@user2)
+    end
+
+    def test_同じ名前の同じユーザー
+      assert @user.eql?(@user)
+    end
+
+    def test_名前を変更した同じユーザー
+      @user.change_name('Alice')
+
+      assert @user.eql?(@user)
+    end
+  end
 end
