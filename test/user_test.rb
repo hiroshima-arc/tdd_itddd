@@ -1,15 +1,8 @@
 # frozen_string_literal: true
 
-require 'minitest/reporters'
-Minitest::Reporters.use! [Minitest::Reporters::SpecReporter.new(color: true)]
-require 'minitest/autorun'
+require './test/test_helper'
 require './lib/sns.rb'
 
-# TODO
-# - [ ] ユーザー名を変更できるようにする
-# - [ ] ユーザーの同一性を判断できるようにする
-#   - [ ] 識別子を追加する
-#   ^ [ ] エンティティの比較のを行う
 class UserTest < Minitest::Test
   describe 'ユーザーを登録する' do
     def setup
