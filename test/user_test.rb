@@ -3,6 +3,9 @@
 require './test/test_helper'
 require './lib/sns.rb'
 
+# TODO
+# - [ ] ユーザーを重複して登録できないようにする
+
 class UserTest < Minitest::Test
   describe 'ユーザーを登録する' do
     def setup
