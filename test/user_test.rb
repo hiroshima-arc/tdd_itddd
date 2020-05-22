@@ -9,13 +9,11 @@ require './lib/sns.rb'
 class UserTest < Minitest::Test
   describe 'ユーザーを登録する' do
     def setup
-      id = UserId.new('1')
       name = UserName.new('Bob')
-      @user = User.new(user_id: id, user_name: name)
+      @user = User.new(user_name: name)
     end
 
     def test_IDと名前を持ったユーザーを作成する
-      assert_equal '1', @user.id.value
       assert_equal 'Bob', @user.name.value
     end
 
@@ -28,8 +26,7 @@ class UserTest < Minitest::Test
     end
 
     def test_ユーザー名が４文字の場合は登録される
-      user = User.new(user_id: UserId.new('1'),
-                      user_name: UserName.new('abcd'))
+      user = User.new(user_name: UserName.new('abcd'))
       assert_equal 'abcd', user.name.value
     end
 
@@ -48,9 +45,8 @@ class UserTest < Minitest::Test
 
   describe 'ユーザーを更新する' do
     def setup
-      id = UserId.new('1')
       name = UserName.new('Bob')
-      @user = User.new(user_id: id, user_name: name)
+      @user = User.new(user_name: name)
     end
 
     def test_ユーザー名を更新する
@@ -61,15 +57,13 @@ class UserTest < Minitest::Test
 
   describe 'ユーザーの同一性を判断する' do
     def setup
-      id = UserId.new('1')
       name = UserName.new('Bob')
-      @user = User.new(user_id: id, user_name: name)
+      @user = User.new(user_name: name)
     end
 
     def test_同じ名前の異なるユーザー
-      id = UserId.new('2')
       name = UserName.new('Bob')
-      @user2 = User.new(user_id: id, user_name: name)
+      @user2 = User.new(user_name: name)
 
       refute @user.eql?(@user2)
     end
