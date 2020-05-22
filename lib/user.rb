@@ -15,13 +15,6 @@ class User
     @name = name
   end
 
-  def exist?(user)
-    db = SQLite3::Database.new('sns.db')
-    sql = 'SELECT * FROM USERS WHERE name = :name'
-    result = db.execute(sql, name: user.name.value)
-    !result.empty?
-  end
-
   def eql?(other)
     @id == other.id
   end
