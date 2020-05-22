@@ -84,4 +84,18 @@ class UserTest < Minitest::Test
       assert @user.eql?(@user)
     end
   end
+
+  describe 'ユーザーの重複を判定する' do
+    def setup
+      @db = SQLite3::Database.new('sns.db')
+      sql = 'CREATE TABLE USERS(id string, name string)'
+      @db.execute(sql)
+    end
+
+    def teardown
+      sql = 'DROP TABLE USERS'
+      @db.execute(sql)
+      @db.close
+    end
+  end
 end
