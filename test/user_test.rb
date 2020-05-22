@@ -103,6 +103,14 @@ class UserTest < Minitest::Test
       assert user.exist?(user)
     end
 
+    def test_登録するユーザーが存在していない
+      id = UserId.new('2')
+      name = UserName.new('Alice')
+      user = User.new(user_id: id, user_name: name)
+
+      refute user.exist?(user)
+    end
+
     def teardown
       sql = 'DROP TABLE USERS'
       @db.execute(sql)
