@@ -15,6 +15,10 @@ class User
     @name = name
   end
 
+  def exist?(_user)
+    true
+  end
+
   def eql?(other)
     @id == other.id
   end
