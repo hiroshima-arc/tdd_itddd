@@ -7,7 +7,6 @@ class UserServiceTest < Minitest::Test
   describe 'ユーザーの重複を判定する' do
     def setup
       @repository = UserRepository.new
-      @repository.create
       @service = UserService.new(user_repository: @repository)
     end
 

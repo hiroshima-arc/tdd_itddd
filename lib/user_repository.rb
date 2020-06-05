@@ -3,9 +3,6 @@
 class UserRepository
   def initialize
     @db = SQLite3::Database.new('sns.db')
-  end
-
-  def create
     sql = 'CREATE TABLE USERS(id string, name string)'
     @db.execute(sql)
   end
