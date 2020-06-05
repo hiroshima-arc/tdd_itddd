@@ -7,7 +7,7 @@ class UserRepository
     @db.execute(sql)
   end
 
-  def insert(user)
+  def save(user)
     sql = 'INSERT INTO USERS(id, name) VALUES(:id, :name)'
     @db.execute(sql, id: user.id.value, name: user.name.value)
   end

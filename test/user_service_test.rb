@@ -14,7 +14,7 @@ class UserServiceTest < Minitest::Test
       name = UserName.new('Bob')
       user = User.new(user_name: name)
 
-      @repository.insert(user)
+      @repository.save(user)
 
       assert @service.exist?(user)
     end
