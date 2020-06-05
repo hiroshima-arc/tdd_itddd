@@ -4,8 +4,8 @@
 class User
   attr_reader :id, :name
 
-  def initialize(user_id:, user_name:)
-    @id = user_id
+  def initialize(user_name:)
+    @id = UserId.new(SecureRandom.uuid.to_str)
     @name = user_name
   end
 
