@@ -14,7 +14,7 @@ class UserRepository
 
   def find(user)
     sql = 'SELECT * FROM USERS WHERE name = :name'
-    result = @db.execute(sql, name: user.name.value)
+    @db.execute(sql, name: user.name.value)
   end
 
   def destroy
