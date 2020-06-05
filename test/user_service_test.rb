@@ -6,10 +6,8 @@ require './lib/sns.rb'
 class UserServiceTest < Minitest::Test
   describe 'ユーザーの重複を判定する' do
     def setup
-      @db = SQLite3::Database.new('sns.db')
-      sql = 'CREATE TABLE USERS(id string, name string)'
-      @db.execute(sql)
-
+      @repository = UserRepository.new
+      @repository.create
       @service = UserService.new
     end
 
@@ -17,8 +15,7 @@ class UserServiceTest < Minitest::Test
       name = UserName.new('Bob')
       user = User.new(user_name: name)
 
-      sql = 'INSERT INTO USERS(id, name) VALUES(:id, :name)'
-      @db.execute(sql, id: user.id.value, name: user.name.value)
+      @repository.insert(user)
 
       assert @service.exist?(user)
     end
@@ -31,9 +28,7 @@ class UserServiceTest < Minitest::Test
     end
 
     def teardown
-      sql = 'DROP TABLE USERS'
-      @db.execute(sql)
-      @db.close
+      @repository.destroy
     end
   end
 end
