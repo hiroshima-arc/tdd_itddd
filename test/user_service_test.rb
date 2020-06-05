@@ -8,7 +8,7 @@ class UserServiceTest < Minitest::Test
     def setup
       @repository = UserRepository.new
       @repository.create
-      @service = UserService.new
+      @service = UserService.new(user_repository: @repository)
     end
 
     def test_登録するユーザーがすでに存在している

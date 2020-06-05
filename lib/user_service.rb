@@ -2,10 +2,12 @@
 
 # UserService
 class UserService
+  def initialize(user_repository:)
+    @repository = user_repository
+  end
+
   def exist?(user)
-    db = SQLite3::Database.new('sns.db')
-    sql = 'SELECT * FROM USERS WHERE name = :name'
-    result = db.execute(sql, name: user.name.value)
+    result = @repository.find(user)
     !result.empty?
   end
 end
