@@ -9,12 +9,13 @@ require './lib/sns.rb'
 class UserTest < Minitest::Test
   describe 'ユーザーを登録する' do
     def setup
+      UserRepository.new
       name = UserName.new('Bob')
       @user = User.new(user_name: name)
     end
 
     def test_IDと名前を持ったユーザーを作成する
-      assert_equal 'Bob', @user.name.value
+      assert_equal 'Bob', @user.name
     end
 
     def test_ユーザー名が３文字未満の場合はエラー
@@ -27,7 +28,7 @@ class UserTest < Minitest::Test
 
     def test_ユーザー名が４文字の場合は登録される
       user = User.new(user_name: UserName.new('abcd'))
-      assert_equal 'abcd', user.name.value
+      assert_equal 'abcd', user.name
     end
 
     def test_ユーザー名を指定しない場合はエラー
@@ -45,6 +46,7 @@ class UserTest < Minitest::Test
 
   describe 'ユーザーを更新する' do
     def setup
+      UserRepository.new
       name = UserName.new('Bob')
       @user = User.new(user_name: name)
     end
@@ -57,6 +59,7 @@ class UserTest < Minitest::Test
 
   describe 'ユーザーの同一性を判断する' do
     def setup
+      UserRepository.new
       name = UserName.new('Bob')
       @user = User.new(user_name: name)
     end

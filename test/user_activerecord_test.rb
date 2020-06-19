@@ -1,34 +1,14 @@
 # frozen_string_literal: true
 
 require './test/test_helper'
-require 'active_record'
-
-class InitialSchema < ActiveRecord::Migration[4.2]
-  def self.up
-    create_table :users do |t|
-      t.string :name
-    end
-  end
-
-  def self.down
-    drop_table :users
-  end
-end
-
-class User < ActiveRecord::Base
-end
+require './lib/sns.rb'
 
 class UserActiverecordTest < Minitest::Test
   describe 'ユーザーの重複を判定する' do
     def setup
-      ActiveRecord::Base.establish_connection(
-        adapter: 'sqlite3',
-        database: 'sns_ar.db'
-      )
-
-      InitialSchema.migrate(:up)
-
-      User.create(name: 'Bob')
+      @repository = UserRepository.new
+      @service = UserService.new(user_repository: @repository)
+      User.create(user_name: UserName.new('Bob'))
     end
 
     def test_登録するユーザーがすでに存在している
@@ -44,7 +24,7 @@ class UserActiverecordTest < Minitest::Test
     end
 
     def teardown
-      InitialSchema.migrate(:down)
+      @repository.destroy
     end
   end
 end

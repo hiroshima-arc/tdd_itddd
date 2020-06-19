@@ -1,25 +1,36 @@
 # frozen_string_literal: true
 
+class InitialSchema < ActiveRecord::Migration[4.2]
+  def self.up
+    create_table :users do |t|
+      t.string :name
+    end
+  end
+
+  def self.down
+    drop_table :users
+  end
+end
+
 class UserRepository
   def initialize
-    @db = SQLite3::Database.new('sns.db')
-    sql = 'CREATE TABLE USERS(id string, name string)'
-    @db.execute(sql)
+    ActiveRecord::Base.establish_connection(
+      adapter: 'sqlite3',
+      database: ':memory:'
+    )
+
+    InitialSchema.migrate(:up)
   end
 
   def save(user)
-    sql = 'INSERT INTO USERS(id, name) VALUES(:id, :name)'
-    @db.execute(sql, id: user.id.value, name: user.name.value)
+    user.save
   end
 
   def find(user)
-    sql = 'SELECT * FROM USERS WHERE name = :name'
-    @db.execute(sql, name: user.name.value)
+    User.find_by(name: user.name)
   end
 
   def destroy
-    sql = 'DROP TABLE USERS'
-    @db.execute(sql)
-    @db.close
+    InitialSchema.migrate(:down)
   end
 end

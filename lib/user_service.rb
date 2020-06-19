@@ -8,6 +8,6 @@ class UserService
 
   def exist?(user)
     result = @repository.find(user)
-    !result.empty?
+    result.present?
   end
 end
