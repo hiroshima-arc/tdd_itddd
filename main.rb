@@ -1,1 +1,3 @@
-require './test/user_test.rb'
+# frozen_string_literal: true
+
+require './test/user_activerecord_test'
