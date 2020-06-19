@@ -13,18 +13,20 @@ class InitialSchema < ActiveRecord::Migration[4.2]
 end
 
 class DB
-  def initialize
-    ActiveRecord::Base.establish_connection(
-      adapter: 'sqlite3',
-      database: ':memory:'
-    )
-  end
+  class << self
+    def connect
+      ActiveRecord::Base.establish_connection(
+        adapter: 'sqlite3',
+        database: ':memory:'
+      )
+    end
 
-  def create
-    InitialSchema.migrate(:up)
-  end
+    def create
+      InitialSchema.migrate(:up)
+    end
 
-  def destroy
-    InitialSchema.migrate(:down)
+    def destroy
+      InitialSchema.migrate(:down)
+    end
   end
 end

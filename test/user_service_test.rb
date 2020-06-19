@@ -6,8 +6,8 @@ require './lib/sns.rb'
 class UserServiceTest < Minitest::Test
   describe 'ユーザーの重複を判定する' do
     def setup
-      @db = DB.new
-      @db.create
+      DB.connect
+      DB.create
       @repository = UserRepository.new
       @service = UserService.new(user_repository: @repository)
     end
@@ -29,7 +29,7 @@ class UserServiceTest < Minitest::Test
     end
 
     def teardown
-      @db.destroy
+      DB.destroy
     end
   end
 end
