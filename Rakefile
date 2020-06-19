@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
+require 'active_record'
 require 'rake/testtask'
 require 'rubocop/rake_task'
+require './lib/db.rb'
 RuboCop::RakeTask.new
 
 task default: [:guard]
@@ -29,4 +31,18 @@ end
 desc 'Show Coverate Report'
 task :coverage_report do
   sh 'launchy ./coverage/index.html'
+end
+
+namespace :db do
+  DB.connect
+
+  desc 'CreateDatabase'
+  task :create do
+    DB.create
+  end
+
+  desc 'DropDatabase'
+  task :drop do
+    DB.destroy
+  end
 end
