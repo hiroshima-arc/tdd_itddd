@@ -6,8 +6,8 @@ require './lib/sns.rb'
 class ActiverecordTest < Minitest::Test
   describe '学習用テスト' do
     def setup
-      DB.connect
-      DB.create
+      TestDB.connect
+      TestDB.create
     end
 
     def test_ユーザーを登録する
@@ -37,7 +37,7 @@ class ActiverecordTest < Minitest::Test
     end
 
     def teardown
-      DB.destroy
+      TestDB.destroy
     end
   end
 end

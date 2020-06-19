@@ -17,7 +17,7 @@ class DB
     def connect
       ActiveRecord::Base.establish_connection(
         adapter: 'sqlite3',
-        database: ':memory:'
+        database: 'sns.db'
       )
     end
 
@@ -27,6 +27,17 @@ class DB
 
     def destroy
       InitialSchema.migrate(:down)
+    end
+  end
+end
+
+class TestDB < DB
+  class << self
+    def connect
+      ActiveRecord::Base.establish_connection(
+        adapter: 'sqlite3',
+        database: ':memory:'
+      )
     end
   end
 end

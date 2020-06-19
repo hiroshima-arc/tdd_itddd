@@ -9,8 +9,8 @@ require './lib/sns.rb'
 class UserTest < Minitest::Test
   describe 'ユーザーを登録する' do
     def setup
-      DB.connect
-      DB.create
+      TestDB.connect
+      TestDB.create
       name = UserName.new('Bob')
       @user = User.new(user_name: name)
     end
@@ -47,8 +47,8 @@ class UserTest < Minitest::Test
 
   describe 'ユーザーを更新する' do
     def setup
-      DB.connect
-      DB.create
+      TestDB.connect
+      TestDB.create
       name = UserName.new('Bob')
       @user = User.new(user_name: name)
     end
@@ -61,8 +61,8 @@ class UserTest < Minitest::Test
 
   describe 'ユーザーの同一性を判断する' do
     def setup
-      DB.connect
-      DB.create
+      TestDB.connect
+      TestDB.create
       name = UserName.new('Bob')
       @user = User.new(user_name: name)
     end
