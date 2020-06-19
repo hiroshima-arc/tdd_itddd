@@ -3,22 +3,35 @@
 require './test/test_helper'
 require './lib/sns.rb'
 
-class UserActiverecordTest < Minitest::Test
-  describe 'ユーザーの重複を判定する' do
+class ActiverecordTest < Minitest::Test
+  describe '学習用テスト' do
     def setup
       @repository = UserRepository.new
       @service = UserService.new(user_repository: @repository)
-      User.create(user_name: UserName.new('Bob'))
     end
 
-    def test_登録するユーザーがすでに存在している
+    def test_ユーザーを登録する
+      User.create(user_name: UserName.new('Bob'))
       user = User.find_by(name: 'Bob')
 
       assert_equal 'Bob', user.name
     end
 
-    def test_登録するユーザーが存在していない
+    def test_ユーザーを更新する
+      User.create(user_name: UserName.new('Bob'))
+      user = User.find_by(name: 'Bob')
+      user.name = 'Alice'
+      user.save
       user = User.find_by(name: 'Alice')
+
+      assert_equal 'Alice', user.name
+    end
+
+    def test_ユーザーを削除する
+      User.create(user_name: UserName.new('Bob'))
+      user = User.find_by(name: 'Bob')
+      user.destroy
+      user = User.find_by(name: 'Bob')
 
       assert user.nil?
     end
