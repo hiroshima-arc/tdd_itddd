@@ -3,6 +3,7 @@
 require 'active_record'
 require 'sqlite3'
 require 'securerandom'
+require './lib/db.rb'
 require './lib/user_id.rb'
 require './lib/user_name.rb'
 require './lib/user.rb'

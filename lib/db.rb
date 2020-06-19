@@ -12,16 +12,19 @@ class InitialSchema < ActiveRecord::Migration[4.2]
   end
 end
 
-class UserRepository
-  def initialize; end
-
-  def save(user)
-    user.save
+class DB
+  def initialize
+    ActiveRecord::Base.establish_connection(
+      adapter: 'sqlite3',
+      database: ':memory:'
+    )
   end
 
-  def find(user)
-    User.find_by(name: user.name)
+  def create
+    InitialSchema.migrate(:up)
   end
 
-  def destroy; end
+  def destroy
+    InitialSchema.migrate(:down)
+  end
 end
