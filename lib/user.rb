@@ -9,21 +9,8 @@ class User
     @name = user_name
   end
 
-  def change_name(name)
-    raise if name.nil?
-
-    @name = name
-  end
-
-  def eql?(other)
-    @id == other.id
-  end
-
-  def ==(other)
-    other.equal?(self) || other.instance_of?(self.class) && other.id == id
-  end
-
-  def hash
-    id.hash
+  def user_name=(user_name)
+    self.name = user_name.value
+    @user_name = user_name
   end
 end
