@@ -14,6 +14,8 @@ gem 'launchy'
 gem 'minitest'
 gem 'minitest-reporters'
 gem 'rake'
+gem 'rom'
+gem 'rom-sql'
 gem 'rubocop', require: false
 gem 'ruby-debug-ide'
 gem 'simplecov', require: false, group: :test
