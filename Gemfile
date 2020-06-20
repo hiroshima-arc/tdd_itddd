@@ -16,5 +16,5 @@ gem 'minitest-reporters'
 gem 'rake'
 gem 'rubocop', require: false
 gem 'ruby-debug-ide'
-gem 'simplecov', require: false, group: :tes
+gem 'simplecov', require: false, group: :test
 gem 'sqlite3'
