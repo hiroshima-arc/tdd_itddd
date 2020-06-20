@@ -19,6 +19,10 @@ class Users < ROM::Relation[:sql]
   struct_namespace Entities
 
   schema(infer: true)
+
+  def listing
+    select(:id, :name, :email).order(:name)
+  end
 end
 
 class UserRepo < ROM::Repository[:users]
@@ -30,6 +34,14 @@ class UserRepo < ROM::Repository[:users]
 
   def by_id(id)
     users.by_pk(id).map_to(::Entities::User).one!
+  end
+
+  def listing
+    users.listing.map_to(::Entities::User)
+  end
+
+  def count
+    users.count
   end
 end
 
@@ -83,8 +95,20 @@ class RomTest < Minitest::Test
       assert user.first.nil?
     end
 
+    def test_ユーザー一覧を取得する
+      @user_repo.delete(@user.id)
+      @user_repo.create(name: 'Jane', email: 'jane@doe.org')
+      @user_repo.create(name: 'Bob', email: 'bob@example.com')
+
+      assert_equal @user_repo.count, 2
+      assert_equal @user_repo.listing.last.name, 'Jane'
+    end
+
     def teardown
       @user_repo.delete(@user.id)
+      @user_repo.listing.each do |user|
+        @user_repo.delete(user.id)
+      end
     end
   end
 end
