@@ -25,11 +25,11 @@ class UserRepo < ROM::Repository[:users]
   commands :create, update: :by_pk, delete: :by_pk
 
   def query(conditions)
-    users.where(conditions).to_a
+    users.where(conditions).map_to(::Entities::User)
   end
 
   def by_id(id)
-    users.by_pk(id).one!
+    users.by_pk(id).map_to(::Entities::User).one!
   end
 end
 
@@ -80,7 +80,7 @@ class RomTest < Minitest::Test
       @user_repo.delete(user.id)
       user = @user_repo.query(name: 'Bob')
 
-      assert user.empty?
+      assert user.first.nil?
     end
 
     def teardown
