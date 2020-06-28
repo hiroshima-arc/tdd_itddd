@@ -7,10 +7,19 @@ require 'rom-repository'
 
 module Entities
   class User
-    attr_reader :id, :name, :email
+    attr_reader :id, :name, :email, :tasks
 
     def initialize(attributes)
-      @id, @name, @email = attributes.values_at(:id, :name, :email)
+      @id, @name, @email, @tasks = attributes.values_at(:id, :name, :email, :tasks)
+      @tasks = @tasks&.map { |task| Task.new(task) }
+    end
+  end
+
+  class Task
+    attr_reader :id, :title
+
+    def initialize(attributes)
+      @id, @title = attributes.values_at(:id, :title)
     end
   end
 end
@@ -18,10 +27,27 @@ end
 class Users < ROM::Relation[:sql]
   struct_namespace Entities
 
-  schema(infer: true)
+  schema(infer: true) do
+    associations do
+      has_many :tasks
+    end
+  end
 
   def listing
     select(:id, :name, :email).order(:name)
+  end
+end
+class Tasks < ROM::Relation[:sql]
+  struct_namespace Entities
+
+  schema(infer: true) do
+    associations do
+      belongs_to :user
+    end
+  end
+
+  def listing
+    select(:id, :title).order(:title)
   end
 end
 
@@ -43,6 +69,26 @@ class UserRepo < ROM::Repository[:users]
   def count
     users.count
   end
+
+  def user_with_tasks
+    users.combine(:tasks).map_to(::Entities::User)
+  end
+end
+
+class TaskRepo < ROM::Repository[:tasks]
+  commands :create, :by_pk, delete: :by_pk
+
+  def by_id(id)
+    tasks.by_pk(id).map_to(::Entities::Task).one!
+  end
+
+  def listing
+    tasks.listing.map_to(::Entities::Task)
+  end
+
+  def by_id_with_user(id)
+    tasks.where(user_id: id).map_to(::Entities::Task)
+  end
 end
 
 class RomTest < Minitest::Test
@@ -55,10 +101,17 @@ class RomTest < Minitest::Test
           column :email, String, null: false
         end
 
-        conf.register_relation(Users)
+        conf.default.create_table(:tasks) do
+          primary_key :id
+          foreign_key :user_id, :users
+          column :title, String, null: false
+        end
+
+        conf.register_relation(Users, Tasks)
       end
 
       @user_repo = UserRepo.new(rom)
+      @task_repo = TaskRepo.new(rom)
       @user = @user_repo.create(name: 'Jane', email: 'jane@doe.org')
     end
 
@@ -104,8 +157,27 @@ class RomTest < Minitest::Test
       assert_equal @user_repo.listing.last.name, 'Jane'
     end
 
+    def test_ユーザーからタスクを取得する
+      @task_repo.create(user_id: @user.id, title: 'foo')
+      @task_repo.create(user_id: @user.id, title: 'bar')
+      user = @user_repo.user_with_tasks.one
+
+      assert_equal 'foo', user.tasks.first.title
+    end
+
+    def test_タスクからユーザーを取得する
+      @task_repo.create(user_id: @user.id, title: 'foo')
+      @task_repo.create(user_id: @user.id, title: 'bar')
+      tasks = @task_repo.by_id_with_user(@user.id)
+
+      assert_equal 2, tasks.count
+      assert_equal 'foo', tasks.first.title
+    end
+
     def teardown
-      @user_repo.delete(@user.id)
+      @task_repo.listing.each do |task|
+        @task_repo.delete(task.id)
+      end
       @user_repo.listing.each do |user|
         @user_repo.delete(user.id)
       end
